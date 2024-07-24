@@ -1,0 +1,91 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "CustomFont";
+  src: url("../fonts/static/Montserrat-Medium.ttf") format("truetype");
+}
+
+body * {
+  font-family: "CustomFont", sans-serif;
+  background-color: var(--background-color);
+}
+
+:root {
+  --primary-blue: rgb(31, 31, 148);
+  --primary-black: rgb(17, 17, 17);
+  --primary-white: rgb(245, 245, 245);
+  --background-color: rgb(255, 255, 255);
+  --text-color: rgb(0, 0, 0);
+  --shadow: rgba(106, 106, 106, 0.999);
+  --cards-shadow: rgb(214, 214, 214);
+  --footer-bg: rgb(41, 41, 41);
+}
+
+[dark-theme="dark"] {
+  --primary-blue: rgb(0, 145, 198);
+  --primary-black: rgb(17, 17, 17);
+  --primary-white: rgb(245, 245, 245);
+  --background-color: rgb(13, 13, 13);
+  --text-color: rgb(255, 255, 255);
+  --shadow: rgba(106, 106, 106, 0.999);
+  --cards-shadow: rgb(53, 53, 53);
+  --footer-bg: rgb(41, 41, 41);
+}
+
+button {
+  --_button-color: var(--button-color, var(--primary-blue));
+  --_button-text-color: var(--button-text-color, var(--primary-black));
+  --_button-shadow: var(--button-shadow, none);
+  padding: 12px;
+  height: max-content;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.7s ease-in-out;
+  background-color: var(--_button-color);
+  color: var(--_button-text-color);
+  box-shadow: 0 0 10px var(--_button-shadow);
+}
+
+.blue--button {
+  border: 0;
+  --button-text-color: var(--primary-white);
+}
+
+.black--button {
+  border: 0;
+  --button-color: var(--primary-black);
+  --button-text-color: var(--primary-white);
+}
+
+.white--button {
+  --button-color: var(--primary-white);
+  --button-text-color: var(--primary-black);
+}
+
+.blue--button:is(:hover, :focus) {
+  --button-shadow: var(--primary-blue);
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.black--button:is(:hover, :focus) {
+  --button-shadow: var(--text-color);
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.white--button:is(:hover, :focus) {
+  --button-shadow: var(--shadow);
+  transition: all 0.3s ease-in-out;
+}
