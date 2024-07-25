@@ -19,6 +19,18 @@ const studentSchema = new mongoose.Schema({
       ref: "Course",
     },
   ],
+  studentTargets: [
+    {
+      courseId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+      },
+      target: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 const Student = mongoose.model("Student", studentSchema);
