@@ -17,6 +17,7 @@ const studentSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
+      default: [],
     },
   ],
   studentTargets: [
@@ -29,10 +30,11 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      default: [],
     },
   ],
 });
 
 const Student = mongoose.model("Student", studentSchema);
 
-module.exports = Student;
+export { Student };
