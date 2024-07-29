@@ -13,13 +13,31 @@ const courseSchema = new mongoose.Schema({
   courseMeetingLink: {
     type: String,
   },
-  courseInstructor: {
+  courseInstructorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Instructor",
   },
-  courseStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
+  courseStudents: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+      default: [],
+    },
+  ],
+  courseMaterial: [
+    {
+      type: {
+        fileName: String,
+        filePath: String,
+        fileType: String,
+        fileSection: String,
+        materialComments: [String],
+      },
+    },
+  ],
+  default: [],
 });
 
 const Course = mongoose.model("Course", courseSchema);
 
-module.exports = Course;
+export { Course };
