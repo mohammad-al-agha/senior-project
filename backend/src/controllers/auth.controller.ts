@@ -108,12 +108,14 @@ export const register = async (
 
     await newStudent.save();
 
+    const { studentPassword, ...returnedStudent } = newStudent;
+
     const token = jwt.sign(
       { id: newStudent._id, email: newStudent.studentEmail },
       process.env.JWT_SECRET
     );
 
-    return res.json({ token: token, student: newStudent });
+    return res.json({ token: token, student: returnedStudent });
   } else {
     const instructor = await Instructor.findOne({ instructorEmail: email });
 
@@ -131,11 +133,13 @@ export const register = async (
 
     newinstructor.save();
 
+    const { instructorPassword, ...returnedInstructor } = newinstructor;
+
     const token = jwt.sign(
       { id: newinstructor._id, email: newinstructor.instructorEmail },
       process.env.JWT_SECRET
     );
 
-    return res.json({ token: token, instructor: newinstructor });
+    return res.json({ token: token, instructor: returnedInstructor });
   }
 };
