@@ -31,7 +31,16 @@ const courseSchema = new mongoose.Schema({
         filePath: String,
         fileType: String,
         fileSection: String,
+        deliverTime: { type: Date, default: Date.now },
+        dueTime: { type: Date, default: undefined },
         materialComments: [String],
+        studentAnswers: [
+          {
+            studentId: { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
+            submittedFile: String,
+            submissionTime: { type: Date },
+          },
+        ],
       },
     },
   ],
