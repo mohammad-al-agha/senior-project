@@ -7,7 +7,7 @@ const Login = () => {
       <div className="login-wrapper">
         <h1>Welcome To Synergy!</h1>
         <div className="input-section">
-          <label htmlFor="Email">Email</label>
+          <label htmlFor="Email">EMAIL</label>
           <input
             type="email"
             id="Email"
@@ -16,7 +16,7 @@ const Login = () => {
           />
         </div>
         <div className="input-section">
-          <label htmlFor="Pass">Password</label>
+          <label htmlFor="Pass">PASSWORD</label>
           <input
             type="password"
             id="Pass"

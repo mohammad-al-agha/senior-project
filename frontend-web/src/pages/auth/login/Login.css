@@ -30,3 +30,7 @@
 .login-wrapper > button {
   width: 200px;
 }
+
+.input-section > label {
+  font-size: 13px;
+}
