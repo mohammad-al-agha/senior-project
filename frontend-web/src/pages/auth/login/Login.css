@@ -1,0 +1,32 @@
+.login-body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.login-wrapper {
+  height: 70%;
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid var(--shadow);
+  border-radius: 12px;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 1rem;
+}
+
+.login-wrapper > button {
+  width: 200px;
+}
