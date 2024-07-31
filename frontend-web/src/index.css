@@ -17,38 +17,40 @@ body * {
 
 :root {
   --primary-green: rgb(82, 191, 31);
+  --secondary-green: rgb(39, 130, 24);
   --primary-black: rgb(17, 17, 17);
   --primary-white: rgb(245, 245, 245);
   --background-color: rgb(255, 255, 255);
   --text-color: rgb(0, 0, 0);
   --shadow: rgba(106, 106, 106, 0.999);
-  --cards-shadow: rgb(214, 214, 214);
-  --footer-bg: rgb(41, 41, 41);
 }
 
 [dark-theme="dark"] {
   --primary-green: rgb(68, 148, 31);
+  --secondary-green: rgb(39, 130, 24);
   --primary-black: rgb(17, 17, 17);
   --primary-white: rgb(245, 245, 245);
   --background-color: rgb(13, 13, 13);
   --text-color: rgb(255, 255, 255);
   --shadow: rgba(106, 106, 106, 0.999);
-  --cards-shadow: rgb(53, 53, 53);
-  --footer-bg: rgb(41, 41, 41);
 }
 
 input {
   border: 1px solid var(--shadow);
   border-radius: 12px;
-  min-height: 30px;
-  min-width: 200px;
-  padding: 5px;
+  min-height: 40px;
+  min-width: 350px;
+  padding: 10px;
   font-size: 11px;
 }
 
 input:focus {
   border: 2px solid var(--primary-green);
   outline: none;
+}
+
+img {
+  background-color: transparent;
 }
 
 button {
