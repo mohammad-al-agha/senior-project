@@ -2,35 +2,111 @@
   height: 100vh;
   width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
 }
 
-.login-wrapper {
-  height: 70%;
+.login-body--left {
+  height: 100%;
   width: 50%;
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  color: var(--background-color);
+  background-color: var(--primary-green);
+  position: relative;
+}
+
+.login-body--left > h1 {
+  background-color: transparent;
+  font-size: 47px;
+  text-align: center;
+}
+
+/* body section right */
+
+.login-body--right {
+  height: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid var(--shadow);
   border-radius: 12px;
+  position: relative;
 }
 
-.input-section {
+section {
+  background-color: transparent;
+  padding: 5px;
+}
+
+.login-icon {
+  position: absolute;
+}
+
+.login-icon--board {
+  right: 2rem;
+  bottom: 8rem;
+}
+
+.login-icon--brain {
+  left: 2rem;
+  bottom: 8rem;
+}
+
+.login-icon--atom {
+  left: 2rem;
+  top: 10rem;
+}
+.login-icon--rocket {
+  right: 2rem;
+  top: 11rem;
+}
+
+.login-icon--molecule {
+  right: 0rem;
+  top: 50%;
+}
+
+.login-icon--bulb {
+  left: 0rem;
+  top: 50%;
+}
+
+.input-section--text {
   display: flex;
   flex-direction: column;
   justify-content: left;
   gap: 1rem;
 }
 
-.login-wrapper > button {
-  width: 200px;
+.login-body--right > button {
+  width: 350px;
 }
 
-.input-section > label {
+.input-section--text > label {
   font-size: 13px;
+}
+
+.input-section--checkbox {
+  width: 200px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-section--checkbox:checked {
+  visibility: none;
+}
+
+.user-types {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
