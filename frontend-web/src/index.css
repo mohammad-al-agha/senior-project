@@ -44,9 +44,20 @@ input {
   font-size: 11px;
 }
 
+label {
+  color: var(--text-color);
+}
+
 input:focus {
   border: 2px solid var(--primary-green);
   outline: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-color);
 }
 
 img {
