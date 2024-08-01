@@ -111,3 +111,15 @@ section {
   flex-direction: row;
   gap: 1rem;
 }
+
+.pass-input {
+  position: relative;
+}
+
+.vis-icon {
+  position: absolute;
+  top: 60%;
+  right: 15px;
+  z-index: 1000;
+  cursor: pointer;
+}
