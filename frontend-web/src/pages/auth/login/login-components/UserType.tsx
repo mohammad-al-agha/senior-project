@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./UserTypes.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import { setAsInstructor, setAsStudent } from "../../../../redux/userType";
 
 type UserTypeProps = {
   icon: string;
@@ -12,22 +15,26 @@ const UserType: React.FC<UserTypeProps> = ({
   type,
   value,
 }: UserTypeProps) => {
-  const [selectedType, setSelectedType] = useState("");
+  const user = useSelector((state: RootState) => state.userType.userType);
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    setSelectedType((prev) => (prev === "" ? value : ""));
+  const handleClick = (value: string) => {
+    value === "Student"
+      ? dispatch(setAsStudent())
+      : dispatch(setAsInstructor());
   };
 
   return (
     <div
-      className={`type-checkbox ${selectedType === value ? "checked" : ""}`}
-      onClick={handleClick}
+      className={`type-checkbox ${user === value ? "checked" : null}`}
+      onClick={(e) => handleClick(value)}
+      key={value}
     >
       <input
         type="radio"
         value={value}
-        checked={selectedType === value}
-        onChange={handleClick}
+        checked={user === value}
+        onChange={(e) => handleClick(value)}
         name="user-type"
         hidden
       />
