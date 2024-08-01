@@ -14,6 +14,10 @@
   background-color: transparent;
 }
 
+input[type="radio"] {
+  display: none;
+}
+
 .checked {
   background-color: rgba(68, 148, 31, 0.41);
   border: 2px solid var(--primary-green);
