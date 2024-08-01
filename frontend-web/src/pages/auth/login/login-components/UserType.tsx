@@ -27,14 +27,14 @@ const UserType: React.FC<UserTypeProps> = ({
   return (
     <div
       className={`type-checkbox ${user === value ? "checked" : null}`}
-      onClick={(e) => handleClick(value)}
+      onClick={() => handleClick(value)}
       key={value}
     >
       <input
         type="radio"
         value={value}
         checked={user === value}
-        onChange={(e) => handleClick(value)}
+        onChange={() => handleClick(value)}
         name="user-type"
         hidden
       />

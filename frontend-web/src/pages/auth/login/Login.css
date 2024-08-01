@@ -78,11 +78,17 @@ section {
   top: 50%;
 }
 
+.input-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .input-section--text {
   display: flex;
   flex-direction: column;
   justify-content: left;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .login-body--right > button {
@@ -91,19 +97,6 @@ section {
 
 .input-section--text > label {
   font-size: 13px;
-}
-
-.input-section--checkbox {
-  width: 200px;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.input-section--checkbox:checked {
-  visibility: none;
 }
 
 .user-types {
@@ -118,8 +111,7 @@ section {
 
 .vis-icon {
   position: absolute;
-  top: 60%;
+  top: 55%;
   right: 15px;
-  z-index: 1000;
   cursor: pointer;
 }
