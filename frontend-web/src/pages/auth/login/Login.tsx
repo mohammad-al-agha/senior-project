@@ -58,29 +58,31 @@ const Login = () => {
           <UserType icon={Student} type="Student" value="Student" />
           <UserType icon={Instructor} type="Instructor" value="Instructor" />
         </div>
-        <div className="input-section--text">
-          <label htmlFor="Email">Email</label>
-          <input
-            type="email"
-            id="Email"
-            name="Email"
-            placeholder="example@gmail.com"
-          />
-        </div>
-        <div className="input-section--text pass-input">
-          <label htmlFor="Pass">Password</label>
-          <input
-            type={visibility ? "text" : "password"}
-            id="Pass"
-            name="Pass"
-            placeholder="Type your password"
-          />
-          <span
-            className="vis-icon"
-            onClick={(e) => setVisibility(!visibility)}
-          >
-            <img src={visibility ? VisibilityOff : VisibilityOn} alt="" />
-          </span>
+        <div className="input-section-wrapper">
+          <div className="input-section--text">
+            <label htmlFor="Email">Email</label>
+            <input
+              type="email"
+              id="Email"
+              name="Email"
+              placeholder="example@gmail.com"
+            />
+          </div>
+          <div className="input-section--text pass-input">
+            <label htmlFor="Pass">Password</label>
+            <input
+              type={visibility ? "text" : "password"}
+              id="Pass"
+              name="Pass"
+              placeholder="Type your password"
+            />
+            <span
+              className="vis-icon"
+              onClick={() => setVisibility(!visibility)}
+            >
+              <img src={visibility ? VisibilityOff : VisibilityOn} alt="" />
+            </span>
+          </div>
         </div>
         <button className="green--button">Login</button>
       </div>
