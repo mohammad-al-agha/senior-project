@@ -8,39 +8,44 @@ import Brain from "../../../../assets/images/Brain.svg";
 import Atom from "../../../../assets/images/Atom.svg";
 import Molecule from "../../../../assets/images/Molecule.svg";
 import Hero from "../../../../assets/images/Hero.svg";
-import UserType from "./login-components/UserType";
 import Student from "../../../../assets/images/Student.svg";
 import Instructor from "../../../../assets/images/Instructor.svg";
+import VisibilityOn from "../../../../assets/images/VisibilityOn.svg";
+import VisibilityOff from "../../../../assets/images/VisibilityOff.svg";
+import UserType from "./login-components/UserType";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { ThemeType } from "../../../core/types/themeTypes";
+import { useState } from "react";
 
 const Login = () => {
   const isDark = useSelector((state: RootState) => state.theme.currentTheme);
+
+  const [visibility, setVisibility] = useState(false);
 
   return (
     <div className="login-body">
       <div className="login-body--left">
         <section className="login-icon login-icon--board">
-          <img src={Board} height={65} width={155} alt="" />
+          <img src={Board} height={65} width={155} alt="Mortar Board" />
         </section>
         <section className="login-icon login-icon--atom">
-          <img src={Atom} height={65} width={155} alt="" />
+          <img src={Atom} height={65} width={155} alt="Atom" />
         </section>
         <section className="login-icon login-icon--brain">
-          <img src={Brain} height={65} width={155} alt="" />
+          <img src={Brain} height={65} width={155} alt="Brain" />
         </section>
         <section className="login-icon login-icon--molecule">
-          <img src={Molecule} height={65} width={155} alt="" />
+          <img src={Molecule} height={65} width={155} alt="Molecule" />
         </section>
         <section className="login-icon login-icon--rocket">
-          <img src={Rocket} height={65} width={155} alt="" />
+          <img src={Rocket} height={65} width={155} alt="Rocket" />
         </section>
         <section className="login-icon login-icon--bulb">
-          <img src={Bulb} height={65} width={155} alt="" />
+          <img src={Bulb} height={65} width={155} alt="Bulb" />
         </section>
         <h1>Welcome To Synergy !</h1>
-        <img src={Hero} height={500} width={800} alt="" />
+        <img src={Hero} height={500} width={800} alt="Synergy Logo" />
       </div>
       <div className="login-body--right">
         <img
@@ -49,17 +54,9 @@ const Login = () => {
           width={225}
           alt=""
         />
-        {/* <div className="input-section--checkbox">
-          <label htmlFor="userType">Student</label>
-          <input type="checkbox" id="userType" />
-        </div>
-        <div className="input-section--checkbox">
-          <label htmlFor="userType">Instructor</label>
-          <input type="checkbox" id="userType" />
-        </div> */}
         <div className="user-types">
-          <UserType icon={Student} type="Student" value="Std" />
-          <UserType icon={Instructor} type="Instructor" value="Inst" />
+          <UserType icon={Student} type="Student" value="Student" />
+          <UserType icon={Instructor} type="Instructor" value="Instructor" />
         </div>
         <div className="input-section--text">
           <label htmlFor="Email">Email</label>
@@ -70,14 +67,20 @@ const Login = () => {
             placeholder="example@gmail.com"
           />
         </div>
-        <div className="input-section--text">
+        <div className="input-section--text pass-input">
           <label htmlFor="Pass">Password</label>
           <input
-            type="password"
+            type={visibility ? "text" : "password"}
             id="Pass"
             name="Pass"
             placeholder="Type your password"
           />
+          <span
+            className="vis-icon"
+            onClick={(e) => setVisibility(!visibility)}
+          >
+            <img src={visibility ? VisibilityOff : VisibilityOn} alt="" />
+          </span>
         </div>
         <button className="green--button">Login</button>
       </div>
