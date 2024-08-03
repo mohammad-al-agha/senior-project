@@ -17,11 +17,39 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { ThemeType } from "../../../core/types/themeTypes";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const isDark = useSelector((state: RootState) => state.theme.currentTheme);
+  const user = useSelector((state: RootState) => state.userType.userType);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
 
   const [visibility, setVisibility] = useState(false);
+
+  const login = () => {
+    axios
+      .post(`http://localhost:8000/auth/${user}/login`, {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
+        navigate("/home");
+      })
+      .catch((e) => console.log(e));
+  };
 
   return (
     <div className="login-body">
@@ -55,8 +83,8 @@ const Login = () => {
           alt=""
         />
         <div className="user-types">
-          <UserType icon={Student} type="Student" value="Student" />
-          <UserType icon={Instructor} type="Instructor" value="Instructor" />
+          <UserType icon={Student} type="Student" value="student" />
+          <UserType icon={Instructor} type="Instructor" value="instructor" />
         </div>
         <div className="input-section-wrapper">
           <div className="input-section--text">
@@ -65,7 +93,9 @@ const Login = () => {
               type="email"
               id="Email"
               name="Email"
+              value={email}
               placeholder="example@gmail.com"
+              onChange={onEmailChange}
             />
           </div>
           <div className="input-section--text pass-input">
@@ -74,7 +104,9 @@ const Login = () => {
               type={visibility ? "text" : "password"}
               id="Pass"
               name="Pass"
+              value={password}
               placeholder="Type your password"
+              onChange={onPasswordChange}
             />
             <span
               className="vis-icon"
@@ -84,7 +116,9 @@ const Login = () => {
             </span>
           </div>
         </div>
-        <button className="green--button">Login</button>
+        <button onClick={() => login()} className="green--button">
+          Login
+        </button>
       </div>
     </div>
   );
