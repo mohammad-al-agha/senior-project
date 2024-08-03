@@ -28,6 +28,8 @@ export const loginAsStudent = async (
     return res.status(409).json({ message: "Invalid Credentials" });
   }
 
+  const { studentPassword, ...returnedStudent } = student.toObject();
+
   const token = jwt.sign(
     {
       id: student._id,
@@ -36,7 +38,7 @@ export const loginAsStudent = async (
     process.env.JWT_SECRET
   );
 
-  return res.json({ token: token, student: student });
+  return res.json({ token: token, student: returnedStudent });
 };
 
 //Login as an instructor
@@ -59,6 +61,8 @@ export const loginAsInstructor = async (
     return res.status(409).json({ message: "Invalid Credentials pass" });
   }
 
+  const { instructorPassword, ...returnedInstructor } = instructor.toObject();
+
   const token = jwt.sign(
     {
       id: instructor._id,
@@ -67,7 +71,7 @@ export const loginAsInstructor = async (
     process.env.JWT_SECRET
   );
 
-  return res.json({ token: token, instructor: instructor });
+  return res.json({ token: token, instructor: returnedInstructor });
 };
 
 //Sign Up
