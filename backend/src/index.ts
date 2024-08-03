@@ -7,6 +7,8 @@ import CourseRouter from "./routes/course.routes";
 import StudentRouter from "./routes/student.routes";
 import InstructorRouter from "./routes/instructor.routes";
 import cors from "cors";
+import { StudentAuthMiddleWare } from "./middlewares/student.auth.middleware";
+import { InstructorAuthMiddleWare } from "./middlewares/instructor.auth.middleware";
 
 const app: Express = express();
 
@@ -20,10 +22,10 @@ app.use("/auth", AuthRouter);
 app.use("/course", CourseRouter);
 
 //instructor
-app.use("/instructor", InstructorRouter);
+app.use("/instructor", InstructorAuthMiddleWare, InstructorRouter);
 
 //student
-app.use("/student", StudentRouter);
+app.use("/student", StudentAuthMiddleWare, StudentRouter);
 
 app
   .listen(process.env.PORT, () => {
