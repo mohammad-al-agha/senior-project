@@ -6,10 +6,12 @@ import AuthRouter from "./routes/auth.routes";
 import CourseRouter from "./routes/course.routes";
 import StudentRouter from "./routes/student.routes";
 import InstructorRouter from "./routes/instructor.routes";
+import cors from "cors";
 
 const app: Express = express();
 
 app.use(express.json());
+app.use(cors());
 
 //auth
 app.use("/auth", AuthRouter);
