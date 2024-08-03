@@ -11,7 +11,7 @@ export const getStudentCourses = async (
 ) => {
   const { id } = req.body;
 
-  const student = await Student.findById(id).populate("studentCorses");
+  const student = await Student.findById(id).populate("studentCourses");
 
   console.log(student);
 
