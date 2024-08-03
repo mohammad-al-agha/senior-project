@@ -19,7 +19,7 @@ const UserType: React.FC<UserTypeProps> = ({
   const dispatch = useDispatch();
 
   const handleClick = (value: string) => {
-    value === "Student"
+    value === "student"
       ? dispatch(setAsStudent())
       : dispatch(setAsInstructor());
   };

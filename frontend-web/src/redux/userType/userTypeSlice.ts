@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type UserState = {
-  userType: "Student" | "Instructor";
+  userType: "student" | "instructor";
 };
 
 const initialUserTypeState: UserState = {
-  userType: "Student",
+  userType: "student",
 };
 
 export const userTypeSlice = createSlice({
@@ -13,10 +13,10 @@ export const userTypeSlice = createSlice({
   initialState: initialUserTypeState,
   reducers: {
     setAsStudent: (state) => {
-      state.userType = "Student";
+      state.userType = "student";
     },
     setAsInstructor: (state) => {
-      state.userType = "Instructor";
+      state.userType = "instructor";
     },
   },
 });
