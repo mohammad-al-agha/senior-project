@@ -1,11 +1,23 @@
 import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
+import { JwtPayload, verify } from "jsonwebtoken";
 import { Instructor } from "../models/instructor.model";
 
 type DecodedType = {
   id: string;
   email: string;
 };
+
+declare global {
+  namespace Express {
+    interface Request {
+      email: string;
+      password: string;
+      instructor?: JwtPayload;
+      student?: JwtPayload;
+    }
+  }
+}
+
 export const InstructorAuthMiddleWare = async (
   req: Request,
   res: Response,
@@ -22,9 +34,10 @@ export const InstructorAuthMiddleWare = async (
       token,
       process.env.JWT_SECRET
     ) as DecodedType;
+
     const instructor = await Instructor.findById(decoded.id, "-password");
 
-    req.body = instructor;
+    req.instructor = instructor;
 
     next();
   } catch (error) {
