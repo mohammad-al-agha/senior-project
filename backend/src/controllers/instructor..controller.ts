@@ -1,25 +1,25 @@
 import { Request, Response } from "express";
 import { Instructor } from "../models/instructor.model";
-import { AddCommentForTarget, GetCoursesDTO } from "./dtos/instructor.dto";
+import { AddCommentForTarget } from "./dtos/instructor.dto";
 import { Course } from "../models/course.model";
 import { Student } from "../models/student.model";
 
 //get courses
-export const getInstructorCourses = async (
-  req: Request<{}, {}, GetCoursesDTO>,
-  res: Response
-) => {
-  const { id } = req.body;
 
-  const instructor = await Instructor.findById(id).populate("InstructorCorses");
+export const getInstructorCourses = async (req: Request, res: Response) => {
+  try {
+    const instructor = await Instructor.findById(req.instructor.id).populate(
+      "instructorCourses"
+    );
 
-  console.log(instructor);
+    if (!instructor) {
+      return res.json({ message: "instructor not found" });
+    }
 
-  if (!instructor) {
-    return res.status(404).json({ message: "Instructor not found" });
+    return res.json(instructor.instructorCourses);
+  } catch (error) {
+    console.log(error);
   }
-
-  res.json(instructor.instructorCourses);
 };
 
 // add comments on the student's progress

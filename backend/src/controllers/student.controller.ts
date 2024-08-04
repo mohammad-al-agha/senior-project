@@ -1,25 +1,24 @@
 import { Request, Response } from "express";
 import { Student } from "../models/student.model";
-import { GetCoursesDTO } from "./dtos/instructor.dto";
-import { GetProgressDTO, SetTargetsDTO } from "./dtos/student.dto";
+import { SetTargetsDTO } from "./dtos/student.dto";
 import { Course } from "../models/course.model";
 
 // get courses
-export const getStudentCourses = async (
-  req: Request<{}, {}, GetCoursesDTO>,
-  res: Response
-) => {
-  const { id } = req.body;
 
-  const student = await Student.findById(id).populate("studentCourses");
+export const getStudentCourses = async (req: Request, res: Response) => {
+  try {
+    const student = await Student.findById(req.student.id).populate(
+      "studentCourses"
+    );
 
-  console.log(student);
+    if (!student) {
+      return res.status(404).json({ message: "student not found" });
+    }
 
-  if (!student) {
-    return res.status(404).json({ message: "student not found" });
+    res.json(student.studentCourses);
+  } catch (error) {
+    console.log(error);
   }
-
-  res.json(student.studentCourses);
 };
 
 // set course targets
@@ -61,13 +60,8 @@ export const setTargets = async (
 
 // view progress
 
-export const getProgress = async (
-  req: Request<{}, {}, GetProgressDTO>,
-  res: Response
-) => {
-  const { studentId } = req.body;
-
-  const student = await Student.findById(studentId);
+export const getProgress = async (req: Request, res: Response) => {
+  const student = await Student.findById(req.student.id);
 
   if (!student) {
     return res.status(404).json({ message: "Student Not Found" });
