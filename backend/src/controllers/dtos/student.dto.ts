@@ -3,6 +3,3 @@ export interface SetTargetsDTO {
   studentId: string;
   target: string;
 }
-export interface GetProgressDTO {
-  studentId: string;
-}
