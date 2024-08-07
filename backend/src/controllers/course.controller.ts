@@ -36,7 +36,7 @@ export const addCourse = async (
   return res.json(course);
 };
 
-//
+//student enroll
 
 export const studentEnroll = async (
   req: Request<{}, {}, StudentEnrollDTO>,
@@ -83,7 +83,7 @@ export const studentEnroll = async (
   });
 };
 
-//
+//intructor assign
 
 export const instructorAssign = async (
   req: Request<{}, {}, InstructorAssignDTO>,
@@ -119,12 +119,20 @@ export const instructorAssign = async (
 //get course
 
 export const getCourse = async (
-  req: Request<{}, {}, GetCourseDTO>,
+  req: Request<{}, {}, {}, GetCourseDTO>,
   res: Response
 ) => {
-  const { courseId } = req.body;
+  const { courseId } = req.query;
 
-  const course = await Course.findById(courseId);
+  const course = await Course.findById(courseId)
+    .populate({
+      path: "courseInstructorId",
+      select: "instructorName instructorEmail -_id",
+    })
+    .populate({
+      path: "courseStudents",
+      select: "studentName studentEmail -_id",
+    });
 
   if (!course) {
     return res.status(404).json({ message: "Course Not Found" });
