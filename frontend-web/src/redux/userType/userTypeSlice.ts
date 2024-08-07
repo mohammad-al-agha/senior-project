@@ -9,7 +9,7 @@ const initialUserTypeState: UserState = {
 };
 
 export const userTypeSlice = createSlice({
-  name: "userType",
+  name: "user",
   initialState: initialUserTypeState,
   reducers: {
     setAsStudent: (state) => {
