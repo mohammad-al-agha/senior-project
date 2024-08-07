@@ -1,15 +1,20 @@
 import { Request, Response } from "express";
-import { Student } from "../models/student.model";
+import { Student, StudentDoc } from "../models/student.model";
 import { SetTargetsDTO } from "./dtos/student.dto";
 import { Course } from "../models/course.model";
+import { Req } from "../core/types/requestType";
 
 // get courses
 
-export const getStudentCourses = async (req: Request, res: Response) => {
+export const getStudentCourses = async (
+  req: Req<StudentDoc>,
+  res: Response
+) => {
   try {
-    const student = await Student.findById(req.student.id).populate(
-      "studentCourses"
-    );
+    const student = await Student.findById(req.user!._id).populate({
+      path: "studentCourses",
+      select: "-courseInstructorId -courseStudents",
+    });
 
     if (!student) {
       return res.status(404).json({ message: "student not found" });
@@ -60,8 +65,8 @@ export const setTargets = async (
 
 // view progress
 
-export const getProgress = async (req: Request, res: Response) => {
-  const student = await Student.findById(req.student.id);
+export const getProgress = async (req: Req<StudentDoc>, res: Response) => {
+  const student = await Student.findById(req.user!._id);
 
   if (!student) {
     return res.status(404).json({ message: "Student Not Found" });
