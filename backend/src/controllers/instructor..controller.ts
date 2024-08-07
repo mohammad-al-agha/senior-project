@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
-import { Instructor } from "../models/instructor.model";
+import { Instructor, InstructorDoc } from "../models/instructor.model";
 import { AddCommentForTarget } from "./dtos/instructor.dto";
 import { Course } from "../models/course.model";
 import { Student } from "../models/student.model";
+import { Req } from "../core/types/requestType";
 
 //get courses
 
-export const getInstructorCourses = async (req: Request, res: Response) => {
+export const getInstructorCourses = async (
+  req: Req<InstructorDoc>,
+  res: Response
+) => {
   try {
-    const instructor = await Instructor.findById(req.instructor.id).populate(
+    const instructor = await Instructor.findById(req.user!._id).populate(
       "instructorCourses"
     );
 
