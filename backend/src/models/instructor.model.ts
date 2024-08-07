@@ -1,6 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Types } from "mongoose";
 
-const instructorSchema = new mongoose.Schema({
+export type InstructorDoc = {
+  _id: Types.ObjectId;
+  instructorName: string;
+  instructorEmail: string;
+  instructorPassword: string;
+  instructorCourses: Types.ObjectId[];
+};
+
+const instructorSchema = new mongoose.Schema<InstructorDoc>({
   instructorName: {
     type: String,
     required: true,
