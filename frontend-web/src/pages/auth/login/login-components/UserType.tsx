@@ -15,7 +15,7 @@ const UserType: React.FC<UserTypeProps> = ({
   type,
   value,
 }: UserTypeProps) => {
-  const user = useSelector((state: RootState) => state.userType.userType);
+  const user = useSelector((state: RootState) => state.user.userType);
   const dispatch = useDispatch();
 
   const handleClick = (value: string) => {

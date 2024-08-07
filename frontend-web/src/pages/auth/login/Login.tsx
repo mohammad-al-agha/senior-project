@@ -18,11 +18,11 @@ import { RootState } from "../../../redux/store";
 import { ThemeType } from "../../../core/types/themeTypes";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const isDark = useSelector((state: RootState) => state.theme.currentTheme);
-  const user = useSelector((state: RootState) => state.userType.userType);
+  const user = useSelector((state: RootState) => state.user.userType);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +46,7 @@ const Login = () => {
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
-        navigate("/home");
+        navigate("/home", { replace: true });
       })
       .catch((e) => console.log(e));
   };
