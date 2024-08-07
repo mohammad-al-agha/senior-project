@@ -1,0 +1,18 @@
+.side-bar-btn {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 12px;
+  text-overflow: ellipsis;
+  transition: 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+.side-bar-btn:hover {
+  background-color: var(--primary-green);
+  color: var(--inverted-text-color);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}

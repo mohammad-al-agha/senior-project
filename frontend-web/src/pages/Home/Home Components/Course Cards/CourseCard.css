@@ -1,0 +1,40 @@
+.course-display {
+  width: 100%;
+  padding: 50px 50px 0px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.courses-wrapper {
+  display: flex;
+  gap: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 200px;
+  padding: 5px;
+  border: 1px solid var(--shadow);
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.course-card-title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: var(--primary-green);
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.course-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
