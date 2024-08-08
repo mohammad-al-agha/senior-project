@@ -2,9 +2,9 @@ import mongoose, { Schema, Types } from "mongoose";
 
 export type StudentDoc = {
   _id: Types.ObjectId;
-  studentName: string;
-  studentEmail: string;
-  studentPassword: string;
+  name: string;
+  email: string;
+  password: string;
   studentCourses: Types.ObjectId[];
   studentTargets: StudentTargetDoc[];
 };
@@ -34,15 +34,15 @@ const StudentTarget = new mongoose.Schema<StudentTargetDoc>({
 });
 
 const studentSchema = new mongoose.Schema<StudentDoc>({
-  studentName: {
+  name: {
     type: String,
     required: true,
   },
-  studentEmail: {
+  email: {
     type: String,
     required: true,
   },
-  studentPassword: {
+  password: {
     type: String,
     required: true,
   },
