@@ -13,8 +13,12 @@ export const getStudentCourses = async (
   try {
     const student = await Student.findById(req.user!._id).populate({
       path: "studentCourses",
-      select: "-courseInstructorId -courseStudents",
+      populate: {
+        path: "courseInstructor courseStudents",
+        select: "name email  -_id",
+      },
     });
+    // .populate({ path: "courseInstructor courseStudents" });
 
     if (!student) {
       return res.status(404).json({ message: "student not found" });

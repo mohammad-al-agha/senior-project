@@ -14,7 +14,7 @@ export const loginAsStudent = async (
 ) => {
   const { email, password } = req.body;
 
-  const student = await Student.findOne({ studentEmail: email });
+  const student = await Student.findOne({ email: email });
 
   if (!student) {
     return res.status(409).json({ message: "Invalid Credentials" });
@@ -22,7 +22,7 @@ export const loginAsStudent = async (
 
   validatePassword(password);
 
-  const compare = await bcrypt.compare(password, student.studentPassword);
+  const compare = await bcrypt.compare(password, student.password);
 
   if (!compare) {
     return res.status(409).json({ message: "Invalid Credentials" });
@@ -31,12 +31,16 @@ export const loginAsStudent = async (
   const token = jwt.sign(
     {
       id: student._id,
-      email: student.studentEmail,
+      email: student.email,
     },
     process.env.JWT_SECRET
   );
 
-  return res.json({ token: token, email: student.studentEmail });
+  return res.json({
+    token: token,
+    email: student.email,
+    name: student.name,
+  });
 };
 
 //Login as an instructor
@@ -47,13 +51,13 @@ export const loginAsInstructor = async (
 ) => {
   const { email, password } = req.body;
 
-  const instructor = await Instructor.findOne({ instructorEmail: email });
+  const instructor = await Instructor.findOne({ email: email });
 
   if (!instructor) {
     return res.status(409).json({ message: "Invalid Credentials" });
   }
 
-  const compare = await bcrypt.compare(password, instructor.instructorPassword);
+  const compare = await bcrypt.compare(password, instructor.password);
 
   if (!compare) {
     return res.status(409).json({ message: "Invalid Credentials pass" });
@@ -62,12 +66,16 @@ export const loginAsInstructor = async (
   const token = jwt.sign(
     {
       id: instructor._id,
-      email: instructor.instructorEmail,
+      email: instructor.email,
     },
     process.env.JWT_SECRET
   );
 
-  return res.json({ token: token, email: instructor.instructorEmail });
+  return res.json({
+    token: token,
+    email: instructor.email,
+    name: instructor.name,
+  });
 };
 
 //Sign Up
@@ -108,10 +116,10 @@ export const register = async (
 
     await newStudent.save();
 
-    const { studentPassword, ...returnedStudent } = newStudent;
+    const { password, ...returnedStudent } = newStudent;
 
     const token = jwt.sign(
-      { id: newStudent._id, email: newStudent.studentEmail },
+      { id: newStudent._id, email: newStudent.email },
       process.env.JWT_SECRET
     );
 
@@ -133,10 +141,10 @@ export const register = async (
 
     newinstructor.save();
 
-    const { instructorPassword, ...returnedInstructor } = newinstructor;
+    const { password, ...returnedInstructor } = newinstructor;
 
     const token = jwt.sign(
-      { id: newinstructor._id, email: newinstructor.instructorEmail },
+      { id: newinstructor._id, email: newinstructor.email },
       process.env.JWT_SECRET
     );
 
