@@ -19,7 +19,7 @@ export const addCourse = async (
     courseCode,
     courseName,
     courseStudents,
-    courseInstructorId,
+    courseInstructor,
     courseMeetingLink,
   } = req.body;
 
@@ -27,7 +27,7 @@ export const addCourse = async (
     courseName: courseName,
     courseCode: courseCode,
     courseMeetingLink: courseMeetingLink,
-    courseInstructorId: courseInstructorId,
+    courseInstructor: courseInstructor,
     courseStudents: courseStudents,
   });
 
@@ -97,13 +97,33 @@ export const instructorAssign = async (
     return res.status(404).json({ message: "Course not found" });
   }
 
+  if (course.courseInstructor) {
+    return res.json({
+      message: "There is already an instructor to this course",
+    });
+  }
+
   const instructor = await Instructor.findById(instructorId);
 
   if (!instructor) {
     return res.status(404).json({ message: "instructor not found" });
   }
 
-  course.courseInstructorId = instructor._id;
+  let assignedCheck: boolean = false;
+
+  try {
+    assignedCheck = course.courseInstructor === instructor._id;
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (assignedCheck) {
+    return res
+      .status(400)
+      .json({ message: "Instructor is already assigned to this course" });
+  }
+
+  course.courseInstructor = instructor._id;
 
   instructor.instructorCourses.push(course._id);
 
@@ -111,8 +131,8 @@ export const instructorAssign = async (
   await instructor.save();
 
   res.json({
-    course: course.populate("courseinstructors"),
-    instructor: instructor.populate("instructorCourses"),
+    course: course,
+    instructor: instructor,
   });
 };
 
@@ -124,15 +144,10 @@ export const getCourse = async (
 ) => {
   const { courseId } = req.query;
 
-  const course = await Course.findById(courseId)
-    .populate({
-      path: "courseInstructorId",
-      select: "instructorName instructorEmail -_id",
-    })
-    .populate({
-      path: "courseStudents",
-      select: "studentName studentEmail -_id",
-    });
+  const course = await Course.findById(courseId).populate({
+    path: "courseInstructor courseStudents",
+    select: "name email -_id",
+  });
 
   if (!course) {
     return res.status(404).json({ message: "Course Not Found" });
