@@ -1,33 +1,12 @@
-import { useParams } from "react-router-dom";
 import "./HomeFeed.css";
-import { useEffect } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
-import { setCurrentCourse } from "../../../../redux/course";
 
 const HomeFeed = () => {
-  const { courseId } = useParams();
+  // const { courseId } = useParams();
 
-  const course = useSelector((state: RootState) => state.selectedCourse);
-
-  const dispatch = useDispatch();
-
-  const getCourse = {
-    method: "GET",
-    url: "http://localhost:8000/course/getCourse/?courseId=" + courseId,
-  };
-
-  useEffect(() => {
-    axios
-      .request(getCourse)
-      .then((res) => {
-        dispatch(setCurrentCourse(res.data));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  const course = useSelector((state: RootState) => state.selectedCourse.course);
+  const user = useSelector((state: RootState) => state.user.userType);
 
   return (
     <div className="home-feed">
@@ -37,17 +16,25 @@ const HomeFeed = () => {
           <h4>{course.courseCode}</h4>
           <h6>Meeting Link: {course.courseMeetingLink}</h6>
         </div>
-        <div className="home-nav-section">
-          <div className="instructor">
-            <h2>{course.courseInstructor.name}</h2>
-            <h6>{course.courseInstructor.email}</h6>
+        {user === "student" ? (
+          <div className="home-nav-section">
+            <div className="instructor">
+              <h2>{course.courseInstructor.name}</h2>
+              <h6>{course.courseInstructor.email}</h6>
+            </div>
+            <button className="green--button">Request a Meeting</button>
           </div>
-          <button className="green--button">Request a Meeting</button>
-        </div>
+        ) : (
+          <button className="green--button">Add Material</button>
+        )}
       </div>
-      {course.courseMaterial.map((material) => {
-        return <div className="home-feed-material">{material}</div>;
-      })}
+      {course.courseMaterial === null ? (
+        <></>
+      ) : (
+        course.courseMaterial?.map((material) => {
+          return <div className="home-feed-material">{material}</div>;
+        })
+      )}
     </div>
   );
 };

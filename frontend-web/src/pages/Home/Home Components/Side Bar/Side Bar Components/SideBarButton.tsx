@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 import { setCurrentCourse } from "../../../../../redux/course";
 
 const SideBarButton = ({ course }: { course: Course }) => {
-  const handleNavigation = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
+  const handleCourseChange = () => {
     dispatch(setCurrentCourse(course));
   };
 
@@ -16,7 +16,7 @@ const SideBarButton = ({ course }: { course: Course }) => {
       to={`/home/course/${course._id}`}
       key={course._id}
       className="side-bar-btn"
-      onClick={handleNavigation}
+      onClick={handleCourseChange}
     >
       {course.courseName}
     </NavLink>

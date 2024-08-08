@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { Course } from "../../../../redux/courses/coursesSlice";
 import { RootState } from "../../../../redux/store";
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import SideBarButton from "./Side Bar Components/SideBarButton";
 import "./SideBar.css";
@@ -12,14 +11,14 @@ import Gear from "../../../../../assets/images/Gear.svg";
 const SideBar = () => {
   const courses = useSelector((state: RootState) => state.course.courses);
 
-  let location = useLocation();
+  const user = useSelector((state: RootState) => state.user);
 
-  useEffect(() => {}, [location]);
+  useEffect(() => {}, []);
   return (
     <div className="side-bar">
       <div className="side-bar-upper">
         {/* <img src="" alt="student photo" /> */}
-        <h2>Mohammad Al Agha</h2>
+        <h2>{user.userName}</h2>
       </div>
       <div className="side-bar-classes">
         {courses.map((course: Course) => {

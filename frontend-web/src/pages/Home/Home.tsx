@@ -6,7 +6,7 @@ import { RootState } from "../../redux/store";
 import { setCourses } from "../../redux/courses";
 import "./HomePage.css";
 import { Outlet, useLocation } from "react-router-dom";
-import CourseCardWrapper from "./Home Components/Course Cards/CourseCard";
+import CourseCardWrapper from "./Home Components/Course Cards/CourseCardWrapper";
 
 const Home = () => {
   const user = useSelector((state: RootState) => state.user.userType);
