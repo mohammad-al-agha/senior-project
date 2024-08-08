@@ -13,12 +13,13 @@ import Instructor from "../../../../assets/images/Instructor.svg";
 import VisibilityOn from "../../../../assets/images/VisibilityOn.svg";
 import VisibilityOff from "../../../../assets/images/VisibilityOff.svg";
 import UserType from "./login-components/UserType";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { ThemeType } from "../../../core/types/themeTypes";
 import { useState } from "react";
 import axios from "axios";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { setAsInstructor, setAsStudent } from "../../../redux/userType";
 
 const Login = () => {
   const isDark = useSelector((state: RootState) => state.theme.currentTheme);
@@ -36,6 +37,8 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
+  const dispatch = useDispatch();
+
   const [visibility, setVisibility] = useState(false);
 
   const login = () => {
@@ -46,6 +49,20 @@ const Login = () => {
       })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
+
+        user === "student"
+          ? dispatch(
+              setAsStudent({
+                email: response.data.email,
+                name: response.data.name,
+              })
+            )
+          : dispatch(
+              setAsInstructor({
+                email: response.data.email,
+                name: response.data.name,
+              })
+            );
         navigate("/home", { replace: true });
       })
       .catch((e) => console.log(e));
