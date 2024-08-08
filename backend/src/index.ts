@@ -6,9 +6,11 @@ import AuthRouter from "./routes/auth.routes";
 import CourseRouter from "./routes/course.routes";
 import StudentRouter from "./routes/student.routes";
 import InstructorRouter from "./routes/instructor.routes";
+import UploadsRouter from "./routes/upload.routes";
 import cors from "cors";
 import { StudentAuthMiddleWare } from "./middlewares/student.auth.middleware";
 import { InstructorAuthMiddleWare } from "./middlewares/instructor.auth.middleware";
+import { upload } from "./config/multer.config";
 
 const app: Express = express();
 
@@ -17,6 +19,9 @@ app.use(cors());
 
 //auth
 app.use("/auth", AuthRouter);
+
+//uploads
+app.use("/uploads", upload.single("file"), UploadsRouter);
 
 //course
 app.use("/course", CourseRouter);
