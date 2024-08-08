@@ -7,13 +7,13 @@ export type Course = {
     name: string;
     email: string;
   };
-  courseMaterial: string[];
+  courseMaterial?: string[];
   courseMeetingLink: string;
   courseName: string;
   courseStudents: [
     {
-      name: string;
       email: string;
+      name: string;
     }
   ];
 };
