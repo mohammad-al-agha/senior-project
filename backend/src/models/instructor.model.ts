@@ -2,22 +2,22 @@ import mongoose, { Document, Types } from "mongoose";
 
 export type InstructorDoc = {
   _id: Types.ObjectId;
-  instructorName: string;
-  instructorEmail: string;
-  instructorPassword: string;
+  name: string;
+  email: string;
+  password: string;
   instructorCourses: Types.ObjectId[];
 };
 
 const instructorSchema = new mongoose.Schema<InstructorDoc>({
-  instructorName: {
+  name: {
     type: String,
     required: true,
   },
-  instructorEmail: {
+  email: {
     type: String,
     required: true,
   },
-  instructorPassword: {
+  password: {
     type: String,
     required: true,
   },

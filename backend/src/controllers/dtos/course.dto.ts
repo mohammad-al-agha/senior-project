@@ -1,10 +1,8 @@
-import { Student } from "../../models/student.model";
-
 export interface CreateCourseDTO {
   courseName: string;
   courseCode: string;
   courseMeetingLink?: string;
-  courseInstructorId: string;
+  courseInstructor: string;
   courseStudents: [];
 }
 
