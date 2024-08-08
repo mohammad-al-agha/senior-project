@@ -13,7 +13,7 @@ const courseSchema = new mongoose.Schema({
   courseMeetingLink: {
     type: String,
   },
-  courseInstructorId: {
+  courseInstructor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Instructor",
   },
@@ -24,6 +24,10 @@ const courseSchema = new mongoose.Schema({
       default: [],
     },
   ],
+  date: {
+    type: String,
+    default: "",
+  },
   courseMaterial: [
     {
       type: {
