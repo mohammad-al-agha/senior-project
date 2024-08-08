@@ -12,9 +12,13 @@ export const getInstructorCourses = async (
   res: Response
 ) => {
   try {
-    const instructor = await Instructor.findById(req.user!._id).populate(
-      "instructorCourses"
-    );
+    const instructor = await Instructor.findById(req.user!._id).populate({
+      path: "instructorCourses",
+      populate: {
+        path: "courseInstructor courseStudents",
+        select: "name email -_id",
+      },
+    });
 
     if (!instructor) {
       return res.json({ message: "instructor not found" });
@@ -64,5 +68,8 @@ export const addCommentOnTargets = async (
 };
 
 //upload course data
+const uploadMaterial = async (req: Request, res: Response) => {
+  res.json(req.file);
+};
 //view meetings calendar (calendly)?
 //attendance sheet
