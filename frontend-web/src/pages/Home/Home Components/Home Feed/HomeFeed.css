@@ -34,3 +34,15 @@
   background-color: var(--background-color);
   color: var(--text-color);
 }
+
+.instructor-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.instructor-options > button {
+  width: fit-content;
+}
