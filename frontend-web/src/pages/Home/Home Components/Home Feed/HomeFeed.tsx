@@ -1,12 +1,15 @@
 import "./HomeFeed.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
+import { useHomeFeedLogic } from "./useHomeFeed";
 
 const HomeFeed = () => {
-  // const { courseId } = useParams();
-
-  const course = useSelector((state: RootState) => state.selectedCourse.course);
-  const user = useSelector((state: RootState) => state.user.userType);
+  const {
+    handleFileUpload,
+    handleUploadMaterial,
+    user,
+    course,
+    hasFile,
+    setHasFile,
+  } = useHomeFeedLogic();
 
   return (
     <div className="home-feed">
@@ -25,7 +28,22 @@ const HomeFeed = () => {
             <button className="green--button">Request a Meeting</button>
           </div>
         ) : (
-          <button className="green--button">Add Material</button>
+          <div className="instructor-options">
+            <button
+              onClick={handleUploadMaterial}
+              className={hasFile ? "green--button" : "disabled--button"}
+            >
+              Add Material
+            </button>
+            <input
+              type="file"
+              name="file"
+              onChange={(e) => {
+                setHasFile(true);
+                handleFileUpload(e);
+              }}
+            />
+          </div>
         )}
       </div>
       {course.courseMaterial === null ? (
