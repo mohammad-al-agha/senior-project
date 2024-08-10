@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type UserState = {
-  userType: "student" | "instructor";
+  userType: "student" | "instructor" | null;
   userName: string;
   userEmail: string;
 };
 
 const initialUserTypeState: UserState = {
-  userType: "student",
+  userType: null,
   userEmail: "",
   userName: "",
 };
