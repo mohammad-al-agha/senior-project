@@ -109,6 +109,12 @@ button {
   --button-text-color: var(--primary-white);
 }
 
+.disabled--button {
+  border: 0;
+  --button-color: var(--shadow);
+  --button-text-color: var(--primary-white);
+}
+
 .white--button {
   --button-color: var(--primary-white);
   --button-text-color: var(--primary-black);
