@@ -1,8 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
-import { setCurrentCourse } from "../../../../redux/course";
-import { Course } from "../../../../redux/courses/coursesSlice";
 import CourseCard from "./Course Cards/CourseCard";
 import "./CourseCardWrapper.css";
 

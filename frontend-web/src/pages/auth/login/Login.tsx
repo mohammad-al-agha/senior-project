@@ -12,62 +12,21 @@ import Student from "../../../../assets/images/Student.svg";
 import Instructor from "../../../../assets/images/Instructor.svg";
 import VisibilityOn from "../../../../assets/images/VisibilityOn.svg";
 import VisibilityOff from "../../../../assets/images/VisibilityOff.svg";
-import UserType from "./login-components/UserType";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import UserType from "./login-components/UserTypeButton";
 import { ThemeType } from "../../../core/types/themeTypes";
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { setAsInstructor, setAsStudent } from "../../../redux/userType";
+import { useLoginLogic } from "./useLoginLogic";
 
 const Login = () => {
-  const isDark = useSelector((state: RootState) => state.theme.currentTheme);
-  const user = useSelector((state: RootState) => state.user.userType);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
-
-  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const dispatch = useDispatch();
-
-  const [visibility, setVisibility] = useState(false);
-
-  const login = () => {
-    axios
-      .post(`http://localhost:8000/auth/${user}/login`, {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-
-        user === "student"
-          ? dispatch(
-              setAsStudent({
-                email: response.data.email,
-                name: response.data.name,
-              })
-            )
-          : dispatch(
-              setAsInstructor({
-                email: response.data.email,
-                name: response.data.name,
-              })
-            );
-        navigate("/home", { replace: true });
-      })
-      .catch((e) => console.log(e));
-  };
-
+  const {
+    email,
+    onEmailChange,
+    password,
+    onPasswordChange,
+    visibility,
+    setVisibility,
+    login,
+    isDark,
+  } = useLoginLogic();
   return (
     <div className="login-body">
       <div className="login-body--left">

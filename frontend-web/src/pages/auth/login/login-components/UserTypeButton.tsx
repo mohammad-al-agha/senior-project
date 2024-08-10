@@ -1,5 +1,5 @@
 import React from "react";
-import "./UserTypes.css";
+import "./UserTypesButton.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { setAsInstructor, setAsStudent } from "../../../../redux/userType";

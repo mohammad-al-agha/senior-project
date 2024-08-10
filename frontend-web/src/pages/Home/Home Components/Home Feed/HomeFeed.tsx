@@ -1,5 +1,5 @@
 import "./HomeFeed.css";
-import { useHomeFeedLogic } from "./useHomeFeed";
+import { useHomeFeedLogic } from "./useHomeFeedLogic";
 
 const HomeFeed = () => {
   const {
