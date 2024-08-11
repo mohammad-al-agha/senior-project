@@ -36,8 +36,8 @@ const courseSchema = new mongoose.Schema({
         fileType: String,
         fileSection: String,
         deliverTime: { type: Date, default: Date.now },
-        dueTime: { type: Date, default: undefined },
-        materialComments: [String],
+        dueTime: { type: Date, default: Date.now },
+        materialComments: { type: [String], default: [] },
         studentAnswers: [
           {
             studentId: { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
@@ -45,10 +45,10 @@ const courseSchema = new mongoose.Schema({
             submissionTime: { type: Date },
           },
         ],
+        default: [],
       },
     },
   ],
-  default: [],
 });
 
 const Course = mongoose.model("Course", courseSchema);
