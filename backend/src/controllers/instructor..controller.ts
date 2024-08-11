@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Instructor, InstructorDoc } from "../models/instructor.model";
-import { AddCommentForTarget } from "./dtos/instructor.dto";
+import { AddCommentForTargetDTO, PostMaterialDTO } from "./dtos/instructor.dto";
 import { Course } from "../models/course.model";
 import { Student } from "../models/student.model";
 import { Req } from "../core/types/requestType";
@@ -33,7 +33,7 @@ export const getInstructorCourses = async (
 // add comments on the student's progress
 
 export const addCommentOnTargets = async (
-  req: Request<{}, {}, AddCommentForTarget>,
+  req: Request<{}, {}, AddCommentForTargetDTO>,
   res: Response
 ) => {
   const { courseId, studentId, comment } = req.body;
@@ -67,9 +67,45 @@ export const addCommentOnTargets = async (
   return res.json(student.studentTargets);
 };
 
-//upload course data
-const uploadMaterial = async (req: Request, res: Response) => {
-  res.json(req.file);
+// upload course data
+export const uploadMaterial = async (
+  req: Request<{}, {}, {}, PostMaterialDTO>,
+  res: Response
+) => {
+  const { courseId, dueTime, fileSection } = req.query;
+  const f = req.files;
+
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return res.json({ message: "Course Not Found" });
+  }
+
+  const parsedDueTime = dueTime ? new Date(dueTime) : null;
+
+  if (Array.isArray(req.files)) {
+    req.files.forEach((f) => {
+      const courseFile = createCourseFile(f, fileSection, parsedDueTime);
+      course.courseMaterial.push(courseFile);
+    });
+  }
+
+  await course.save();
+  res.json(f);
 };
+
+//This function is not an endpoint, it is just a helper for the upper function for a cleaner code
+const createCourseFile = (
+  file: Express.Multer.File,
+  fileSection: string | null,
+  date: Date
+) => ({
+  fileName: file.filename || "",
+  filePath: file.path || "",
+  fileType: file.mimetype || "",
+  fileSection: fileSection || "Announcemnt",
+  dueTime: date || new Date(),
+});
+
 //view meetings calendar (calendly)?
 //attendance sheet
