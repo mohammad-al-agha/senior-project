@@ -21,7 +21,7 @@ app.use(cors());
 app.use("/auth", AuthRouter);
 
 //uploads
-app.use("/uploads", upload.single("file"), UploadsRouter);
+app.use("/uploads", upload.array("file", 5), UploadsRouter);
 
 //course
 app.use("/course", CourseRouter);
