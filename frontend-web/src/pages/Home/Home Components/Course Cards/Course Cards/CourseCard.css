@@ -2,24 +2,115 @@
   display: flex;
   flex-direction: column;
   height: 200px;
-  width: 200px;
-  padding: 5px;
-  border: 1px solid var(--shadow);
+  width: 300px;
+  min-width: fit-content;
+  border: 1px solid var(--dark-shadow);
   border-radius: 12px;
   text-decoration: none;
+  box-shadow: 0 0 25px var(--shadow);
+  transition: 350ms ease-in-out;
+}
+
+.course-card:hover {
+  transform: scale(1.02);
+  transition: 350ms ease-in-out;
 }
 
 .course-card-title {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  color: var(--primary-green);
-  border-bottom: 1px solid black;
-  margin-bottom: 10px;
+  background-color: var(--primary-green);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 5px;
+}
+
+.course-card-title :is(h2, h3) {
+  background-color: transparent;
+  color: var(--primary-white);
 }
 
 .course-card-body {
+  height: 100%;
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 10px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background-repeat: no-repeat;
+  background-position: 90% 75%;
+}
+
+.course-details {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.course-details > img {
+}
+
+.course-details > h4 {
+  background-color: transparent;
+  font-size: 12px;
+}
+
+.course-net-background {
+  background-image: url("../../../../../../assets/images/NetworkingB.svg");
+}
+
+.course-math-background {
+  background-image: url("../../../../../../assets/images/MathB.svg");
+}
+
+.course-code-background {
+  background-image: url("../../../../../../assets/images/CodeB.svg");
+}
+
+.course-stats-background {
+  background-image: url("../../../../../../assets/images/StatsB.svg");
+}
+
+.course-design-background {
+  background-image: url("../../../../../../assets/images/DesignB.svg");
+}
+
+.course-security-background {
+  background-image: url("../../../../../../assets/images/SecurityB.svg");
+}
+
+.course-data-background {
+  background-image: url("../../../../../../assets/images/DatabaseB.svg");
+}
+
+.course-net-background--dark {
+  background-image: url("../../../../../../assets/images/Networking.svg");
+}
+
+.course-math-background--dark {
+  background-image: url("../../../../../../assets/images/Math.svg");
+}
+
+.course-code-background--dark {
+  background-image: url("../../../../../../assets/images/Code.svg");
+}
+
+.course-stats-background--dark {
+  background-image: url("../../../../../../assets/images/Stats.svg");
+}
+
+.course-design-background--dark {
+  background-image: url("../../../../../../assets/images/Design.svg");
+}
+
+.course-security-background--dark {
+  background-image: url("../../../../../../assets/images/Security.svg");
+}
+
+.course-data-background--dark {
+  background-image: url("../../../../../../assets/images/Database.svg");
 }
