@@ -24,13 +24,22 @@ const courseSchema = new mongoose.Schema({
       default: [],
     },
   ],
-  date: {
+  sessionDate: {
+    type: String,
+    default: "",
+  },
+  time: {
+    type: String,
+    default: "",
+  },
+  icon: {
     type: String,
     default: "",
   },
   courseMaterial: [
     {
       type: {
+        materialComment: String,
         fileName: String,
         filePath: String,
         fileType: String,
