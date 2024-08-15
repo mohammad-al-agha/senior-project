@@ -18,23 +18,31 @@ body * {
 :root {
   --primary-green: rgb(82, 191, 31);
   --secondary-green: rgb(39, 130, 24);
-  --primary-black: rgb(17, 17, 17);
-  --primary-white: rgb(245, 245, 245);
+  --primary-black: rgb(0, 0, 0);
+  --primary-white: rgb(255, 255, 255);
   --background-color: rgb(255, 255, 255);
   --text-color: rgb(0, 0, 0);
   --inverted-text-color: rgb(255, 255, 255);
-  --shadow: rgba(106, 106, 106, 0.999);
+  --shadow: rgb(223, 223, 223);
+  --dark-shadow: rgba(188, 188, 188, 0.934);
+  --red: rgba(221, 0, 0, 0.999);
 }
 
 [dark-theme="dark"] {
-  --primary-green: rgb(68, 148, 31);
-  --secondary-green: rgb(39, 130, 24);
-  --primary-black: rgb(17, 17, 17);
-  --primary-white: rgb(245, 245, 245);
+  --primary-green: rgb(39, 130, 24);
+  --secondary-green: rgb(82, 191, 31);
+  --primary-black: rgb(0, 0, 0);
+  --primary-white: rgb(255, 255, 255);
   --background-color: rgb(13, 13, 13);
   --text-color: rgb(255, 255, 255);
   --inverted-text-color: rgb(0, 0, 0);
-  --shadow: rgba(106, 106, 106, 0.999);
+  --shadow: rgba(49, 49, 49, 0.807);
+  --dark-shadow: rgba(23, 23, 23, 0.919);
+  --red: rgba(221, 0, 0, 0.999);
+
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
 }
 
 input:-webkit-autofill,
@@ -58,6 +66,11 @@ input:-webkit-autofill {
   -webkit-text-fill-color: var(--text-color) !important;
 }
 
+.input-error {
+  color: var(--red);
+  font-size: 12px;
+}
+
 label {
   color: var(--text-color);
 }
@@ -70,7 +83,9 @@ input:is(:focus, :active) {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   color: var(--text-color);
 }
 
@@ -78,6 +93,7 @@ img {
   background-color: transparent;
 }
 
+input[type="submit"],
 button {
   --_button-color: var(--button-color, var(--primary-green));
   --_button-text-color: var(--button-text-color, var(--primary-black));
@@ -87,7 +103,7 @@ button {
   font-size: 10px;
   font-weight: 600;
   border-radius: 12px;
-  border: 1px solid;
+  border: 1px solid none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,8 +126,15 @@ button {
 }
 
 .disabled--button {
+  cursor: auto;
   border: 0;
   --button-color: var(--shadow);
+  --button-text-color: var(--background-color);
+}
+
+.red--button {
+  border: 0;
+  --button-color: var(--red);
   --button-text-color: var(--primary-white);
 }
 
@@ -128,6 +151,12 @@ button {
 
 .black--button:is(:hover, :focus) {
   --button-shadow: var(--text-color);
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.red--button:is(:hover, :focus) {
+  --button-shadow: var(--red);
   border: none;
   transition: all 0.3s ease-in-out;
 }
