@@ -5,10 +5,15 @@ import "./CourseCardWrapper.css";
 
 const CourseCardWrapper = () => {
   const courses = useSelector((state: RootState) => state.course.courses);
+  const isDark = useSelector((state: RootState) => state.theme.currentTheme);
 
   return (
     <div className="course-display">
-      <h1>Your Courses:</h1>
+      <div
+        className={`home-nav ${isDark ? "home-nav--dark" : "home-nav--light"}`}
+      >
+        <h2>Your Courses:</h2>
+      </div>
       <div className="courses-wrapper">
         {courses.map((course) => (
           <CourseCard key={course._id} course={course} />

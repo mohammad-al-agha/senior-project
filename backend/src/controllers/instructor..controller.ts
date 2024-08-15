@@ -72,9 +72,8 @@ export const uploadMaterial = async (
   req: Request<{}, {}, {}, PostMaterialDTO>,
   res: Response
 ) => {
-  const { courseId, dueTime, fileSection } = req.query;
+  const { courseId, dueTime, fileSection, materialComment } = req.query;
   const f = req.files;
-
   const course = await Course.findById(courseId);
 
   if (!course) {
@@ -85,21 +84,28 @@ export const uploadMaterial = async (
 
   if (Array.isArray(req.files)) {
     req.files.forEach((f) => {
-      const courseFile = createCourseFile(f, fileSection, parsedDueTime);
+      const courseFile = createCourseFile(
+        f,
+        fileSection,
+        parsedDueTime,
+        materialComment
+      );
       course.courseMaterial.push(courseFile);
     });
   }
 
   await course.save();
-  res.json(f);
+  return res.json(f);
 };
 
 //This function is not an endpoint, it is just a helper for the upper function for a cleaner code
 const createCourseFile = (
   file: Express.Multer.File,
   fileSection: string | null,
-  date: Date
+  date: Date,
+  materialComment: string
 ) => ({
+  materialComment: materialComment || "",
   fileName: file.filename || "",
   filePath: file.path || "",
   fileType: file.mimetype || "",
