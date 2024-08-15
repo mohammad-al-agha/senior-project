@@ -7,6 +7,7 @@ import { RootState } from "../../redux/store";
 
 export const useHomeLogic = () => {
   const user = useSelector((state: RootState) => state.user.userType);
+  const isDark = useSelector((state: RootState) => state.theme.currentTheme);
 
   const userType = localStorage.getItem("userType");
 
@@ -30,5 +31,5 @@ export const useHomeLogic = () => {
 
   const location = useLocation();
 
-  return { location };
+  return { location, isDark };
 };
