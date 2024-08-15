@@ -4,12 +4,14 @@ type UserState = {
   userType: "student" | "instructor" | null;
   userName: string;
   userEmail: string;
+  imgUrl: string;
 };
 
 const initialUserTypeState: UserState = {
   userType: null,
   userEmail: "",
   userName: "",
+  imgUrl: "",
 };
 
 export const userTypeSlice = createSlice({
@@ -20,11 +22,12 @@ export const userTypeSlice = createSlice({
       state.userType = "student";
       state.userEmail = action.payload.email;
       state.userName = action.payload.name;
+      state.imgUrl = action.payload.imgUrl;
     },
     setAsInstructor: (state, action) => {
       state.userType = "instructor";
       state.userEmail = action.payload.email;
-      state.userName = action.payload.name;
+      state.imgUrl = action.payload.imgUrl;
     },
   },
 });
