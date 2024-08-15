@@ -3,15 +3,15 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "./pages/auth/login/Login.tsx";
 import Home from "./pages/Home/Home.tsx";
 import NotFoundPage from "./pages/Not Found/NotFound.tsx";
 import HomeFeed from "./pages/Home/Home Components/Home Feed/HomeFeed.tsx";
+import App from "./App.tsx";
 
 const Router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <App />,
     errorElement: <NotFoundPage />,
   },
   {
