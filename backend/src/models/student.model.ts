@@ -4,6 +4,7 @@ export type StudentDoc = {
   _id: Types.ObjectId;
   name: string;
   email: string;
+  imgUrl: string;
   password: string;
   studentCourses: Types.ObjectId[];
   studentTargets: StudentTargetDoc[];
@@ -46,6 +47,7 @@ const studentSchema = new mongoose.Schema<StudentDoc>({
     type: String,
     required: true,
   },
+  imgUrl: String,
   studentCourses: [
     {
       type: mongoose.Schema.Types.ObjectId,
