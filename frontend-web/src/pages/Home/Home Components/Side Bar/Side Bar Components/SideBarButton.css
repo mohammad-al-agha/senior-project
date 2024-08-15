@@ -4,15 +4,25 @@
   align-items: center;
   width: fit-content;
   padding: 10px;
-  border-radius: 12px;
   text-overflow: ellipsis;
-  transition: 0.3s ease-in-out;
+  transition: 350ms ease-in-out;
   text-decoration: none;
+  cursor: pointer;
+  position: relative;
 }
 
-.side-bar-btn:hover {
-  background-color: var(--primary-green);
-  color: var(--inverted-text-color);
-  transition: 0.3s ease-in-out;
-  cursor: pointer;
+.side-bar-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary-white);
+  transition: all 350ms ease-out;
+  transform: translateX(-50%);
+}
+
+.side-bar-btn:hover::after {
+  width: 100%;
 }
