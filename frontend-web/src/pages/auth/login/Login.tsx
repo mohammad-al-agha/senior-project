@@ -18,15 +18,16 @@ import { useLoginLogic } from "./useLoginLogic";
 
 const Login = () => {
   const {
-    email,
-    onEmailChange,
-    password,
-    onPasswordChange,
     visibility,
     setVisibility,
     login,
     isDark,
+    register,
+    handleSubmit,
+    errors,
+    error,
   } = useLoginLogic();
+
   return (
     <div className="login-body">
       <div className="login-body--left">
@@ -62,39 +63,41 @@ const Login = () => {
           <UserType icon={Student} type="Student" value="student" />
           <UserType icon={Instructor} type="Instructor" value="instructor" />
         </div>
-        <div className="input-section-wrapper">
+        <form
+          onSubmit={handleSubmit((data) => {
+            login(data);
+          })}
+          className="input-section-wrapper"
+        >
           <div className="input-section--text">
             <label htmlFor="Email">Email</label>
             <input
               type="email"
-              id="Email"
-              name="Email"
-              value={email}
+              {...register("email")}
               placeholder="example@gmail.com"
-              onChange={onEmailChange}
             />
+            <p className="input-error">{errors.email?.message}</p>
           </div>
-          <div className="input-section--text pass-input">
+          <div className="input-section--text">
             <label htmlFor="Pass">Password</label>
-            <input
-              type={visibility ? "text" : "password"}
-              id="Pass"
-              name="Pass"
-              value={password}
-              placeholder="Type your password"
-              onChange={onPasswordChange}
-            />
-            <span
-              className="vis-icon"
-              onClick={() => setVisibility(!visibility)}
-            >
-              <img src={visibility ? VisibilityOff : VisibilityOn} alt="" />
-            </span>
+            <div className="pass-input">
+              <input
+                type={visibility ? "text" : "password"}
+                {...register("password")}
+                placeholder="Type your password"
+              />
+              <span
+                className="vis-icon"
+                onClick={() => setVisibility(!visibility)}
+              >
+                <img src={visibility ? VisibilityOff : VisibilityOn} alt="" />
+              </span>
+            </div>
+            <p className="input-error">{errors.password?.message}</p>
           </div>
-        </div>
-        <button onClick={() => login()} className="green--button">
-          Login
-        </button>
+          <p className="input-error">{error}</p>
+          <input type="submit" value="Login" className="green--button" />
+        </form>
       </div>
     </div>
   );

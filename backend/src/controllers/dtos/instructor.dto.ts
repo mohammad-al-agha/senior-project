@@ -8,6 +8,7 @@ export interface AddCommentForTargetDTO {
 
 export type PostMaterialDTO = {
   courseId: string;
+  materialComment?: string;
   fileSection: MediaSectionTypes;
   dueTime: Date;
 };

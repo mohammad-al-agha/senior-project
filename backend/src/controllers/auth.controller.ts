@@ -17,7 +17,7 @@ export const loginAsStudent = async (
   const student = await Student.findOne({ email: email });
 
   if (!student) {
-    return res.status(409).json({ message: "Invalid Credentials" });
+    return res.status(401).json({ message: "Invalid Credentials" });
   }
 
   validatePassword(password);
@@ -25,7 +25,7 @@ export const loginAsStudent = async (
   const compare = await bcrypt.compare(password, student.password);
 
   if (!compare) {
-    return res.status(409).json({ message: "Invalid Credentials" });
+    return res.status(401).json({ message: "Invalid Credentials" });
   }
 
   const token = jwt.sign(
@@ -54,13 +54,13 @@ export const loginAsInstructor = async (
   const instructor = await Instructor.findOne({ email: email });
 
   if (!instructor) {
-    return res.status(409).json({ message: "Invalid Credentials" });
+    return res.status(401).json({ message: "Invalid Credentials" });
   }
 
   const compare = await bcrypt.compare(password, instructor.password);
 
   if (!compare) {
-    return res.status(409).json({ message: "Invalid Credentials pass" });
+    return res.status(401).json({ message: "Invalid Credentials" });
   }
 
   const token = jwt.sign(
