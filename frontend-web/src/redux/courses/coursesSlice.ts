@@ -7,7 +7,23 @@ export type Course = {
     name: string;
     email: string;
   };
-  courseMaterial?: string[];
+  sessionDate: string;
+  time: string;
+  icon: string;
+  courseMaterial: [
+    {
+      id: string;
+      fileName: string;
+      filePath: string;
+      fileType: string;
+      fileSection: string;
+      dueTime: Date | null;
+      materialComments: string[];
+      _id: string;
+      deliverTime: Date | null;
+      studentAnswers: [];
+    }
+  ];
   courseMeetingLink: string;
   courseName: string;
   courseStudents: [
