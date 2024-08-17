@@ -165,12 +165,3 @@ Material Card Section
 .block {
   display: block;
 }
-
-@media screen and (width<1211px) {
-  .material-card-button {
-    display: none;
-  }
-  .material-card {
-    width: 100%;
-  }
-}

@@ -39,6 +39,9 @@ const HomeFeed = () => {
     message,
     setMessage,
     sendAnnouncement,
+    setDateTime,
+    setFileSection,
+    setUploadMessage,
   } = useHomeFeedLogic();
 
   return (
@@ -93,6 +96,9 @@ const HomeFeed = () => {
               hasFile={hasFile}
               removeFiles={removeFiles}
               closeUploadDialog={closeUploadDialog}
+              setDateTime={setDateTime}
+              setFileSection={setFileSection}
+              setUploadMessage={setUploadMessage}
             />
           </>
         )}
@@ -124,7 +130,7 @@ const HomeFeed = () => {
                 <section className="material-date-section">
                   <section>
                     <p className="">{date(material.deliverTime)}</p>
-                    <p className="">{`${time(material.dueTime)}`}</p>
+                    <p className="">{`${time(material.deliverTime)}`}</p>
                   </section>
                   <section className="material-card-buttons">
                     <button className="material-card-button">

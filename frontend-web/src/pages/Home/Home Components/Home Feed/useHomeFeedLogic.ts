@@ -18,9 +18,12 @@ export const useHomeFeedLogic = () => {
   const { courseId } = useParams();
 
   const [message, setMessage] = useState("");
+  const [uploadMessage, setUploadMessage] = useState("");
 
   const [hasFile, setHasFile] = useState(false);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>();
+  const [dateTime, setDateTime] = useState<string>("");
+  const [fileSection, setFileSection] = useState("Quiz");
 
   const dispatch = useDispatch();
 
@@ -56,7 +59,6 @@ export const useHomeFeedLogic = () => {
       .request(getCourse)
       .then((res) => {
         dispatch(setCurrentCourse(res.data));
-        console.log(course.courseMaterial);
       })
       .catch((e) => console.log(e));
   }, [courseId]);
@@ -88,17 +90,24 @@ export const useHomeFeedLogic = () => {
     if (typeof acceptedFiles[0] === undefined) return;
 
     const formData = new FormData();
-    formData.append("file", acceptedFiles[0]);
+
+    acceptedFiles.forEach((file) => {
+      formData.append("file", file);
+      console.log(file);
+      console.log(formData);
+    });
 
     const uploadMaterial = {
       method: "POST",
-      url: "http://localhost:8000/uploads/uploadMaterial",
+      url: `http://localhost:8000/uploads/uploadMaterial?courseId=${course._id}&fileSection=${fileSection}&dueTime=${dateTime}&description=${uploadMessage}`,
       data: formData,
     };
 
+    console.log(uploadMessage);
+
     axios
       .request(uploadMaterial)
-      .then((res) => console.log(res))
+      .then((res) => dispatch(setMaterial(res.data)))
       .catch((e) => console.log(e));
   };
 
@@ -155,5 +164,8 @@ export const useHomeFeedLogic = () => {
     message,
     setMessage,
     sendAnnouncement,
+    setDateTime,
+    setFileSection,
+    setUploadMessage,
   };
 };

@@ -1,4 +1,5 @@
 import { DropzoneInputProps, DropzoneRootProps } from "react-dropzone";
+import "../Dialogs.css";
 
 type UploadDialogProps = {
   uploadDialogRef: React.RefObject<HTMLDialogElement>;
@@ -11,6 +12,9 @@ type UploadDialogProps = {
   hasFile: boolean;
   handleUploadMaterial: () => void;
   closeUploadDialog: () => void;
+  setDateTime: React.Dispatch<React.SetStateAction<string>>;
+  setFileSection: React.Dispatch<React.SetStateAction<string>>;
+  setUploadMessage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const UploadDialog = ({
@@ -24,6 +28,9 @@ const UploadDialog = ({
   removeFiles,
   today,
   closeUploadDialog,
+  setDateTime,
+  setFileSection,
+  setUploadMessage,
 }: UploadDialogProps) => {
   return (
     <dialog className="dialog dialog--upload" ref={uploadDialogRef}>
@@ -31,8 +38,21 @@ const UploadDialog = ({
       <div className="dialog-options">
         <div className="dialog-left-section">
           <div className="dialog-section">
+            <label htmlFor="message">Message</label>
+            <textarea
+              name="message"
+              placeholder={"Type your announcement here..."}
+              className="upload-announcement"
+              onChange={(e) => {
+                setUploadMessage(e.target.value);
+              }}
+            ></textarea>
             <label htmlFor="types">File Type:</label>
-            <select name="types" className="dropdown-menu">
+            <select
+              name="types"
+              className="dropdown-menu"
+              onChange={(e) => setFileSection(e.target.value)}
+            >
               <option value={"Quiz"}>Quiz</option>
               <option value={"Assignment"}>Assignment</option>
               <option value={"Exam"}>Exam</option>
@@ -45,6 +65,7 @@ const UploadDialog = ({
               name="dateTime"
               min={today}
               defaultValue={today}
+              onChange={(e) => setDateTime(e.target.value)}
             />
           </div>
         </div>
@@ -74,7 +95,14 @@ const UploadDialog = ({
           )}
           <div className="dialog-buttons">
             <button
-              onClick={hasFile ? handleUploadMaterial : () => {}}
+              onClick={
+                hasFile
+                  ? () => {
+                      handleUploadMaterial();
+                      closeUploadDialog();
+                    }
+                  : () => {}
+              }
               className={hasFile ? "green--button" : "disabled--button"}
             >
               Send
