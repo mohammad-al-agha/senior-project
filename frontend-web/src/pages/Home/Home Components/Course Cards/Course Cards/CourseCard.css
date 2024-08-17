@@ -48,11 +48,13 @@
 
 .course-details {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
 .course-details > img {
-  /* this for link and time of the course */
+  height: 10px;
+  width: 10px;
 }
 
 .course-details > h4 {
@@ -61,57 +63,57 @@
 }
 
 .course-net-background {
-  background-image: url("../../../../../../assets/images/NetworkingB.svg");
+  background-image: url("../../../../../../assets/images/NetworkingTB.svg");
 }
 
 .course-math-background {
-  background-image: url("../../../../../../assets/images/MathB.svg");
+  background-image: url("../../../../../../assets/images/MathTB.svg");
 }
 
 .course-code-background {
-  background-image: url("../../../../../../assets/images/CodeB.svg");
+  background-image: url("../../../../../../assets/images/CodeTB.svg");
 }
 
 .course-stats-background {
-  background-image: url("../../../../../../assets/images/StatsB.svg");
+  background-image: url("../../../../../../assets/images/StatsTB.svg");
 }
 
 .course-design-background {
-  background-image: url("../../../../../../assets/images/DesignB.svg");
+  background-image: url("../../../../../../assets/images/DesignTB.svg");
 }
 
 .course-security-background {
-  background-image: url("../../../../../../assets/images/SecurityB.svg");
+  background-image: url("../../../../../../assets/images/SecurityTB.svg");
 }
 
 .course-data-background {
-  background-image: url("../../../../../../assets/images/DatabaseB.svg");
+  background-image: url("../../../../../../assets/images/DatabaseTB.svg");
 }
 
 .course-net-background--dark {
-  background-image: url("../../../../../../assets/images/Networking.svg");
+  background-image: url("../../../../../../assets/images/NetworkingTW.svg");
 }
 
 .course-math-background--dark {
-  background-image: url("../../../../../../assets/images/Math.svg");
+  background-image: url("../../../../../../assets/images/MathTW.svg");
 }
 
 .course-code-background--dark {
-  background-image: url("../../../../../../assets/images/Code.svg");
+  background-image: url("../../../../../../assets/images/CodeTW.svg");
 }
 
 .course-stats-background--dark {
-  background-image: url("../../../../../../assets/images/Stats.svg");
+  background-image: url("../../../../../../assets/images/StatsTW.svg");
 }
 
 .course-design-background--dark {
-  background-image: url("../../../../../../assets/images/Design.svg");
+  background-image: url("../../../../../../assets/images/DesignTW.svg");
 }
 
 .course-security-background--dark {
-  background-image: url("../../../../../../assets/images/Security.svg");
+  background-image: url("../../../../../../assets/images/SecurityTW.svg");
 }
 
 .course-data-background--dark {
-  background-image: url("../../../../../../assets/images/Database.svg");
+  background-image: url("../../../../../../assets/images/DatabaseTW.svg");
 }
