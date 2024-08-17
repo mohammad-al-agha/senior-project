@@ -12,14 +12,14 @@ export type Course = {
   icon: string;
   courseMaterial: [
     {
-      id: string;
-      fileName: string;
-      filePath: string;
-      fileType: string;
-      fileSection: string;
+      _id: string;
+      description: string | null;
+      fileName: string | null;
+      filePath: string | null;
+      fileType: string | null;
+      fileSection: string | null;
       dueTime: Date | null;
       materialComments: string[];
-      _id: string;
       deliverTime: Date | null;
       studentAnswers: [];
     }
