@@ -38,15 +38,15 @@ const SideBar = () => {
         <h3>{user.userName ? user.userName : userName}</h3>
       </div>
 
-      <SideBarOptionButton icon={Home} option="Home" toHome={true} />
+      <SideBarOptionButton icon={Home} title="Home" to="/home" />
       <div className="side-bar-classes">
         {courses.map((course: Course) => {
           return <SideBarButton key={course._id} course={course} />;
         })}
       </div>
-      <div className="side-bar-button-wrapper">
-        <SideBarOptionButton icon={Gear} option="Settings" />
-        <SideBarOptionButton icon={Door} option="Logout" />
+      <div className="side-bar-lower">
+        <SideBarOptionButton icon={Gear} title="Settings" to="/home/settings" />
+        <SideBarOptionButton icon={Door} title="Logout" to="/" />
       </div>
     </div>
   );
