@@ -11,16 +11,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  height: 200px;
   background-color: var(--background-color);
   border-bottom: 1px solid var(--shadow);
-  box-shadow: 0px 5px 5px var(--dark-shadow);
+  box-shadow: 0px 10px 15px var(--dark-shadow);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   background-repeat: no-repeat;
-  background-position: 5px 20%;
-  background-size: 100px 70px;
+  background-position: 10px 20%;
+  background-size: 110px 90px;
+  z-index: 1;
+  width: 100%;
+  min-height: 180px;
 }
 
 .home-nav--dark {
@@ -77,8 +78,26 @@ Dialog Section
   width: min-content;
   padding: 2rem;
   margin: auto;
-  border: 2px solid var(--shadow);
   border-radius: 12px;
+  border: 2px solid var(--shadow);
+}
+
+.announcement {
+  min-height: 200px;
+  min-width: 300px;
+  outline: 1px var(--shadow) solid;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.announcement:focus {
+  outline: 2px var(--primary-green) solid;
+}
+
+.announce-dialog-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .dialog-options {
@@ -94,10 +113,11 @@ Dialog Section
 .dialog-left-section {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 0;
   gap: 3rem;
   border-right: 1px var(--shadow) solid;
 }
+
 .dialog-right-section {
   display: flex;
   flex-direction: column;
@@ -155,15 +175,11 @@ option {
 Material Card Section
  */
 
-.material-cards {
-  width: 100%;
-  display: flex;
-}
-
 .material-card {
-  width: 90%;
+  height: min-content;
+  width: 100%;
   min-width: fit-content;
-  padding: 1rem 3rem;
+  padding: 0.5rem 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -171,9 +187,6 @@ Material Card Section
   position: relative;
   border: 1px var(--shadow) solid;
   border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-  border-right: none;
-  z-index: 4;
 }
 
 .material-info-section {
@@ -186,6 +199,17 @@ Material Card Section
   gap: 1rem;
 }
 
+.material-card * h2 {
+  font-size: 13px;
+  font-weight: 900;
+}
+.material-card * h3 {
+  font-size: 11px;
+}
+.material-card * p {
+  font-size: 11px;
+}
+
 .material-date-section {
   display: flex;
   flex-direction: column;
@@ -194,54 +218,34 @@ Material Card Section
 
 .material-card-buttons {
   max-width: fit-content;
-  height: 100%;
+  height: fit-content;
   display: flex;
-  position: relative;
-  flex-shrink: 4;
+  gap: 0.3rem;
 }
 
 .material-card-button {
-  height: 100%;
-  width: 3rem;
+  height: 28px;
+  width: 34px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  background-color: var(--background-color);
   border: 1px var(--shadow) solid;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   cursor: pointer;
-  transition: 350ms ease-in-out;
+  transition: 150ms ease-in-out;
 }
 
 .material-card-button:is(:hover, :focus) {
   background-color: var(--primary-green);
-  transition: 350ms ease-in-out;
-}
-
-.material-card-button--eye {
-  position: absolute;
-  left: 0;
-  z-index: 2;
-  box-shadow: 3px 0px 12px var(--dark-shadow);
-}
-
-.material-card-button--download {
-  position: absolute;
-  left: 40px;
-  z-index: 1;
-  box-shadow: 3px 0px 12px var(--dark-shadow);
-}
-.material-card-button--commnets {
-  position: absolute;
-  left: 80px;
-  z-index: 0;
+  transition: 150ms ease-in-out;
 }
 
 .file-section {
   font-size: 12px;
   color: var(--primary-green);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .file-type-img {
@@ -270,8 +274,11 @@ Material Card Section
   display: block;
 }
 
-@media screen and (width<1200px) {
+@media screen and (width<1211px) {
   .material-card-button {
     display: none;
+  }
+  .material-card {
+    width: 100%;
   }
 }
