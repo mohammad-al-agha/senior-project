@@ -13,7 +13,23 @@ const selectedCourseInitialState: course = {
       email: "",
       name: "",
     },
-    courseMaterial: [],
+    courseMaterial: [
+      {
+        _id: "",
+        description: null,
+        fileName: null,
+        filePath: null,
+        fileType: null,
+        fileSection: null,
+        dueTime: null,
+        materialComments: [],
+        deliverTime: null,
+        studentAnswers: [],
+      },
+    ],
+    icon: "",
+    time: "",
+    sessionDate: "",
     courseMeetingLink: "",
     courseName: "",
     courseStudents: [{ email: "", name: "" }],
@@ -26,6 +42,9 @@ export const CourseSlice = createSlice({
   reducers: {
     setCurrentCourse: (state, action) => {
       state.course = action.payload;
+    },
+    setMaterial: (state, action) => {
+      state.course.courseMaterial.unshift(action.payload);
     },
   },
 });
