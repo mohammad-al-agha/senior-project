@@ -44,7 +44,7 @@ export const CourseSlice = createSlice({
       state.course = action.payload;
     },
     setMaterial: (state, action) => {
-      state.course.courseMaterial.unshift(action.payload);
+      state.course.courseMaterial = action.payload;
     },
   },
 });
