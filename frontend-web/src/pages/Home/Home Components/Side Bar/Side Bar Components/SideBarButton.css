@@ -3,12 +3,13 @@
   gap: 3px;
   align-items: center;
   width: fit-content;
-  padding: 10px;
+  padding: 5px;
   text-overflow: ellipsis;
   transition: 350ms ease-in-out;
   text-decoration: none;
   cursor: pointer;
   position: relative;
+  margin: 10px;
 }
 
 .side-bar-btn::after {
@@ -25,4 +26,9 @@
 
 .side-bar-btn:hover::after {
   width: 100%;
+}
+
+.course-img {
+  height: 20px;
+  width: 20px;
 }

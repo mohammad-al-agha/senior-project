@@ -1,22 +1,36 @@
 import React from "react";
 import "./SideBarButton.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 type SideBarOptionButtonProps = {
   icon: string;
-  option: string;
-  toHome?: boolean;
+  title: string;
+  to: string;
 };
 
 const SideBarOptionButton: React.FC<SideBarOptionButtonProps> = ({
   icon,
-  option,
-  toHome,
+  title,
+  to,
 }: SideBarOptionButtonProps) => {
+  const navigate = useNavigate();
+
   return (
-    <NavLink to={toHome ? `/home` : `/home/${option}`} className="side-bar-btn">
+    <NavLink
+      to={to}
+      className="side-bar-btn"
+      onClick={
+        to === "/"
+          ? () => {
+              localStorage.clear();
+              navigate("/", { replace: true });
+              window.history.pushState(null, "", "/");
+            }
+          : () => {}
+      }
+    >
       <img src={icon} alt="" />
-      <h4>{option}</h4>
+      <h4>{title}</h4>
     </NavLink>
   );
 };
