@@ -12,3 +12,8 @@ export type PostMaterialDTO = {
   fileSection: MediaSectionTypes;
   dueTime: Date;
 };
+
+export type SendAnnouncementDTO = {
+  courseId: string;
+  message: string;
+};
