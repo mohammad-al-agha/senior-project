@@ -97,7 +97,7 @@ export const sendAnnouncement = async (
 
   course.courseMaterial.unshift(announcement);
 
-  course.save();
+  await course.save();
   res.json(course.courseMaterial);
 };
 
@@ -106,7 +106,7 @@ export const uploadMaterial = async (
   req: Request<{}, {}, {}, PostMaterialDTO>,
   res: Response
 ) => {
-  const { courseId, dueTime, fileSection, materialComment } = req.query;
+  const { courseId, dueTime, fileSection, description } = req.query;
   const f = req.files;
   const course = await Course.findById(courseId);
 
@@ -122,14 +122,14 @@ export const uploadMaterial = async (
         f,
         fileSection,
         parsedDueTime,
-        materialComment
+        description
       );
       course.courseMaterial.unshift(courseFile);
     });
   }
 
   await course.save();
-  return res.json(f);
+  return res.json(course.courseMaterial);
 };
 
 //This function is not an endpoint, it is just a helper for the upper function for a cleaner code
@@ -137,9 +137,9 @@ const createCourseFile = (
   file: Express.Multer.File,
   fileSection: string | null,
   date: Date,
-  materialComment: string
+  description: string
 ) => ({
-  materialComment: materialComment || "",
+  description: description || "",
   fileName: file.filename || "",
   filePath: file.path || "",
   fileType: file.mimetype || "",
