@@ -9,8 +9,9 @@ import CommentsW from "../../../../../assets/images/CommentsW.svg";
 import CommentsB from "../../../../../assets/images/CommentsB.svg";
 import SpeakerW from "../../../../../assets/images/SpeakerW.svg";
 import SpeakerB from "../../../../../assets/images/SpeakerB.svg";
-import { counter } from "@fortawesome/fontawesome-svg-core";
-import course from "../../../../redux/course";
+import NoFiles from "../../../../../assets/images/NoFiles.svg";
+import AnnounceDialog from "../../../../components/Dialogs/Announce Dialog/AnnounceDialog";
+import UploadDialog from "../../../../components/Dialogs/Upload Dialog/UploadDialog";
 
 const HomeFeed = () => {
   const {
@@ -74,107 +75,30 @@ const HomeFeed = () => {
                 <img src={Upload} alt="Upload" />
               </button>
             </div>
-            <dialog className="dialog dialog--announce" ref={announceDialogRef}>
-              <div className="announce-dialog-options">
-                <h2>Announce</h2>
-                <textarea
-                  value={message}
-                  placeholder={"Type your announcement here..."}
-                  className="announcement"
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                  }}
-                />
-                <div className="dialog-buttons">
-                  <button
-                    className={
-                      message === "" ? "disabled--button" : "green--button"
-                    }
-                    onClick={
-                      message === ""
-                        ? () => {}
-                        : () => {
-                            sendAnnouncement();
-                            setMessage("");
-                            closeAnnounceDialog();
-                          }
-                    }
-                  >
-                    Send
-                  </button>
-
-                  <button onClick={closeAnnounceDialog} className="red--button">
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </dialog>
-            <dialog className="dialog dialog--upload" ref={uploadDialogRef}>
-              <h2>Upload</h2>
-              <div className="dialog-options">
-                <div className="dialog-left-section">
-                  <div className="dialog-section">
-                    <label htmlFor="types">File Type:</label>
-                    <select name="types" className="dropdown-menu">
-                      <option value={"Quiz"}>Quiz</option>
-                      <option value={"Assignment"}>Assignment</option>
-                      <option value={"Exam"}>Exam</option>
-                    </select>
-                  </div>
-                  <div className="dialog-section">
-                    <label htmlFor="dateTime">Due Date:</label>
-                    <input
-                      type="datetime-local"
-                      name="dateTime"
-                      min={today}
-                      defaultValue={today}
-                    />
-                  </div>
-                </div>
-                <div className="dialog-right-section">
-                  <div className="drop-zone" {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    {isDragActive ? (
-                      <p className="drop-zone-area">Drop the files here...</p>
-                    ) : (
-                      <p className="drop-zone-area ">
-                        Drag & drop some files here, or click to select files
-                      </p>
-                    )}
-                  </div>
-                  {preview ? (
-                    <div className="dialog-preview">
-                      <h6>{preview as string}</h6>
-                      <button
-                        onClick={removeFiles}
-                        className={preview ? "red--button" : "disabled--button"}
-                      >
-                        Remove Files
-                      </button>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                  <div className="dialog-buttons">
-                    <button
-                      onClick={hasFile ? handleUploadMaterial : () => {}}
-                      className={hasFile ? "green--button" : "disabled--button"}
-                    >
-                      Send
-                    </button>
-                    <button onClick={closeUploadDialog} className="red--button">
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </dialog>
+            <AnnounceDialog
+              announceDialogRef={announceDialogRef}
+              closeAnnounceDialog={closeAnnounceDialog}
+              message={message}
+              sendAnnouncement={sendAnnouncement}
+              setMessage={setMessage}
+            />
+            <UploadDialog
+              uploadDialogRef={uploadDialogRef}
+              today={today}
+              getInputProps={getInputProps}
+              getRootProps={getRootProps}
+              isDragActive={isDragActive}
+              handleUploadMaterial={handleUploadMaterial}
+              preview={preview}
+              hasFile={hasFile}
+              removeFiles={removeFiles}
+              closeUploadDialog={closeUploadDialog}
+            />
           </>
         )}
       </div>
       <div className="home-feed-material">
         {course.courseMaterial.length > 0 ? (
-          (course.courseMaterial.reverse,
           course.courseMaterial.map((material) => {
             return (
               <div key={material._id} className="material-card">
@@ -216,9 +140,12 @@ const HomeFeed = () => {
                 </section>
               </div>
             );
-          }))
+          })
         ) : (
-          <h1>This Course Has No Material Yet</h1>
+          <div className="empty">
+            <img height={300} width={300} src={NoFiles} alt="" />
+            <h1>This Course Has No Material Yet</h1>
+          </div>
         )}
       </div>
     </div>
