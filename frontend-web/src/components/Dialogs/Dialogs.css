@@ -1,0 +1,110 @@
+.instructor-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.instructor-options-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dialog {
+  height: fit-content;
+  width: min-content;
+  padding: 2rem;
+  margin: auto;
+  border-radius: 12px;
+  border: 2px solid var(--shadow);
+}
+
+.announcement {
+  min-height: 200px;
+  min-width: 300px;
+  outline: 1px var(--shadow) solid;
+  border-radius: 12px;
+  padding: 1rem;
+  color: var(--text-color);
+}
+
+.announcement:focus {
+  outline: 2px var(--primary-green) solid;
+}
+
+.announce-dialog-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dialog-options {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-overflow: ellipsis;
+  gap: 2rem;
+}
+
+.dialog-left-section {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 1rem 0;
+  gap: 3rem;
+  border-right: 1px var(--shadow) solid;
+}
+
+.dialog-right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.dialog-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dropdown-menu {
+  border: 1px var(--shadow) solid !important;
+  border-radius: 5px;
+  padding: 2px;
+  outline: none;
+  color: var(--text-color);
+}
+
+option {
+  background-color: var(--background-color);
+}
+
+.drop-zone {
+  padding: 15px;
+  border: 2px var(--primary-green) dashed;
+  border-radius: 12px;
+}
+
+.drop-zone-preview {
+  height: 50px;
+  width: 50px;
+}
+
+.drop-zone-area {
+  width: 300px;
+  color: var(--text-color);
+}
+
+.dialog-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1rem;
+}
