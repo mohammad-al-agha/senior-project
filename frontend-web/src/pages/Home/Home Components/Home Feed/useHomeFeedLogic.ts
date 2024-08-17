@@ -56,7 +56,6 @@ export const useHomeFeedLogic = () => {
       .request(getCourse)
       .then((res) => {
         dispatch(setCurrentCourse(res.data));
-        course.courseMaterial.reverse();
         console.log(course.courseMaterial);
       })
       .catch((e) => console.log(e));
