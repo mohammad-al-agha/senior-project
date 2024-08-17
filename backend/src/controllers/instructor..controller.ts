@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { Instructor, InstructorDoc } from "../models/instructor.model";
-import { AddCommentForTargetDTO, PostMaterialDTO } from "./dtos/instructor.dto";
+import {
+  AddCommentForTargetDTO,
+  PostMaterialDTO,
+  SendAnnouncementDTO,
+} from "./dtos/instructor.dto";
 import { Course } from "../models/course.model";
 import { Student } from "../models/student.model";
 import { Req } from "../core/types/requestType";
@@ -67,6 +71,38 @@ export const addCommentOnTargets = async (
   return res.json(student.studentTargets);
 };
 
+//send announcement
+
+export const sendAnnouncement = async (
+  req: Request<{}, {}, SendAnnouncementDTO>,
+  res: Response
+) => {
+  const { courseId, message } = req.body;
+
+  if (!message) {
+    return res.json({ message: "No Message is Sent" });
+  }
+
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return res.json({ message: "Course Not Found" });
+  }
+
+  const announcement = {
+    description: message,
+    fileSection: "Announcement",
+    materialComments: ([] = []),
+  };
+
+  course.courseMaterial.push(announcement);
+
+  course.save();
+  const length = course.courseMaterial.length;
+  const newAnnoncement = course.courseMaterial[length - 1];
+  res.json(newAnnoncement);
+};
+
 // upload course data
 export const uploadMaterial = async (
   req: Request<{}, {}, {}, PostMaterialDTO>,
@@ -109,7 +145,7 @@ const createCourseFile = (
   fileName: file.filename || "",
   filePath: file.path || "",
   fileType: file.mimetype || "",
-  fileSection: fileSection || "Announcemnt",
+  fileSection: fileSection || "Quiz",
   dueTime: date || new Date(),
 });
 

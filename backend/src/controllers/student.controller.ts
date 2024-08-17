@@ -18,7 +18,6 @@ export const getStudentCourses = async (
         select: "name email  -_id",
       },
     });
-    // .populate({ path: "courseInstructor courseStudents" });
 
     if (!student) {
       return res.status(404).json({ message: "student not found" });

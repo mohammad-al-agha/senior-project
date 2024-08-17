@@ -39,11 +39,11 @@ const courseSchema = new mongoose.Schema({
   courseMaterial: [
     {
       type: {
-        materialComment: String,
-        fileName: String,
-        filePath: String,
-        fileType: String,
-        fileSection: String,
+        description: String || null,
+        fileName: String || null,
+        filePath: String || null,
+        fileType: String || null,
+        fileSection: String || null,
         deliverTime: { type: Date, default: Date.now },
         dueTime: { type: Date, default: Date.now },
         materialComments: { type: [String], default: [] },
