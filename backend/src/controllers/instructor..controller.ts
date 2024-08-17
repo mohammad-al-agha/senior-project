@@ -95,12 +95,10 @@ export const sendAnnouncement = async (
     materialComments: ([] = []),
   };
 
-  course.courseMaterial.push(announcement);
+  course.courseMaterial.unshift(announcement);
 
   course.save();
-  const length = course.courseMaterial.length;
-  const newAnnoncement = course.courseMaterial[length - 1];
-  res.json(newAnnoncement);
+  res.json(course.courseMaterial);
 };
 
 // upload course data
@@ -126,7 +124,7 @@ export const uploadMaterial = async (
         parsedDueTime,
         materialComment
       );
-      course.courseMaterial.push(courseFile);
+      course.courseMaterial.unshift(courseFile);
     });
   }
 
