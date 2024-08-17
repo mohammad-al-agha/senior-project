@@ -8,7 +8,9 @@ import DownloadB from "../../../../../assets/images/DownloadB.svg";
 import CommentsW from "../../../../../assets/images/CommentsW.svg";
 import CommentsB from "../../../../../assets/images/CommentsB.svg";
 import SpeakerW from "../../../../../assets/images/SpeakerW.svg";
-import { ThemeType } from "../../../../core/types/themeTypes";
+import SpeakerB from "../../../../../assets/images/SpeakerB.svg";
+import { counter } from "@fortawesome/fontawesome-svg-core";
+import course from "../../../../redux/course";
 
 const HomeFeed = () => {
   const {
@@ -21,15 +23,21 @@ const HomeFeed = () => {
     isDragActive,
     preview,
     removeFiles,
-    openDialog,
-    closeDialog,
-    dialogRef,
+    openUploadDialog,
+    closeUploadDialog,
+    uploadDialogRef,
+    announceDialogRef,
+    openAnnounceDialog,
+    closeAnnounceDialog,
     time,
     date,
     getIcon,
     isDark,
     today,
     icon,
+    message,
+    setMessage,
+    sendAnnouncement,
   } = useHomeFeedLogic();
 
   return (
@@ -53,20 +61,56 @@ const HomeFeed = () => {
             <div className="instructor-options">
               <button
                 className="green--button instructor-options-btn"
-                onClick={openDialog}
+                onClick={openAnnounceDialog}
               >
                 Anncounce
                 <img src={SpeakerW} alt="" />
               </button>
               <button
                 className="green--button instructor-options-btn"
-                onClick={openDialog}
+                onClick={openUploadDialog}
               >
                 Upload
                 <img src={Upload} alt="Upload" />
               </button>
             </div>
-            <dialog className="dialog" ref={dialogRef}>
+            <dialog className="dialog dialog--announce" ref={announceDialogRef}>
+              <div className="announce-dialog-options">
+                <h2>Announce</h2>
+                <textarea
+                  value={message}
+                  placeholder={"Type your announcement here..."}
+                  className="announcement"
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                  }}
+                />
+                <div className="dialog-buttons">
+                  <button
+                    className={
+                      message === "" ? "disabled--button" : "green--button"
+                    }
+                    onClick={
+                      message === ""
+                        ? () => {}
+                        : () => {
+                            sendAnnouncement();
+                            setMessage("");
+                            closeAnnounceDialog();
+                          }
+                    }
+                  >
+                    Send
+                  </button>
+
+                  <button onClick={closeAnnounceDialog} className="red--button">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </dialog>
+            <dialog className="dialog dialog--upload" ref={uploadDialogRef}>
+              <h2>Upload</h2>
               <div className="dialog-options">
                 <div className="dialog-left-section">
                   <div className="dialog-section">
@@ -80,7 +124,6 @@ const HomeFeed = () => {
                   <div className="dialog-section">
                     <label htmlFor="dateTime">Due Date:</label>
                     <input
-                      // className={isDark ? "date-picker--dark" : ""}
                       type="datetime-local"
                       name="dateTime"
                       min={today}
@@ -119,7 +162,7 @@ const HomeFeed = () => {
                     >
                       Send
                     </button>
-                    <button onClick={closeDialog} className="red--button">
+                    <button onClick={closeUploadDialog} className="red--button">
                       Cancel
                     </button>
                   </div>
@@ -131,44 +174,49 @@ const HomeFeed = () => {
       </div>
       <div className="home-feed-material">
         {course.courseMaterial.length > 0 ? (
+          (course.courseMaterial.reverse,
           course.courseMaterial.map((material) => {
             return (
-              <div className="material-cards">
-                <div key={material._id} className="material-card">
-                  <div className="material-info-section">
-                    <div className="file-type-img">
-                      <img
-                        src={getIcon(material.fileType, isDark)}
-                        alt="file-type"
-                      />
-                    </div>
-                    <section className="material-name-type">
-                      <h3>{material.fileName}</h3>
-                      <p className="file-section">{material.fileSection}</p>
-                    </section>
+              <div key={material._id} className="material-card">
+                <div className="material-info-section">
+                  <div className="file-type-img">
+                    <img
+                      src={
+                        material.fileType
+                          ? getIcon(material.fileType, isDark)
+                          : isDark
+                          ? SpeakerW
+                          : SpeakerB
+                      }
+                      alt="file-type"
+                    />
                   </div>
-                  <section className="material-date-section">
+                  <section className="material-name-type">
+                    <h2>{material.description}</h2>
+                    <h3>{material.fileName}</h3>
+                    <p className="file-section">{material.fileSection}</p>
+                  </section>
+                </div>
+                <section className="material-date-section">
+                  <section>
                     <p className="">{date(material.deliverTime)}</p>
                     <p className="">{`${time(material.dueTime)}`}</p>
                   </section>
-                </div>
-                <div className="material-card-buttons">
-                  <div className="material-card-button material-card-button--eye">
-                    <img src={isDark ? EyeW : EyeB} alt="" />
-                  </div>
-                  <div className="material-card-button material-card-button--download">
-                    <img src={isDark ? DownloadW : DownloadB} alt="" />
-                  </div>
-                  <div className="material-card-button material-card-button--commnets">
-                    <img
-                      src={isDark === ThemeType.dark ? CommentsW : CommentsB}
-                      alt=""
-                    />
-                  </div>
-                </div>
+                  <section className="material-card-buttons">
+                    <button className="material-card-button">
+                      <img src={isDark ? EyeW : EyeB} alt="" />
+                    </button>
+                    <button className="material-card-button">
+                      <img src={isDark ? DownloadW : DownloadB} alt="" />
+                    </button>
+                    <button className="material-card-button">
+                      <img src={isDark ? CommentsW : CommentsB} alt="" />
+                    </button>
+                  </section>
+                </section>
               </div>
             );
-          })
+          }))
         ) : (
           <h1>This Course Has No Material Yet</h1>
         )}

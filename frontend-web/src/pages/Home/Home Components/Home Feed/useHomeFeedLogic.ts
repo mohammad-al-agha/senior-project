@@ -6,7 +6,7 @@ import { useDate } from "../../../../hooks/useDate";
 import { useFileIcon } from "../../../../hooks/useFileIcon";
 import { useDropzone } from "react-dropzone";
 import { RootState } from "../../../../redux/store";
-import { setCurrentCourse } from "../../../../redux/course";
+import { setCurrentCourse, setMaterial } from "../../../../redux/course";
 import axios from "axios";
 import { useBackgroundIcon } from "../../../../hooks/useBackgroundIcon";
 
@@ -17,26 +17,47 @@ export const useHomeFeedLogic = () => {
 
   const { courseId } = useParams();
 
+  const [message, setMessage] = useState("");
+
   const [hasFile, setHasFile] = useState(false);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>();
 
   const dispatch = useDispatch();
 
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const uploadDialogRef = useRef<HTMLDialogElement>(null);
+  const announceDialogRef = useRef<HTMLDialogElement>(null);
 
   const icon = useBackgroundIcon(course.icon, isDark);
+
+  const token = localStorage.getItem("token");
+
+  const announce = {
+    method: "POST",
+    url: `http://localhost:8000/instructor/sendAnnouncement`,
+    data: { courseId: courseId, message: message },
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const sendAnnouncement = () => {
+    axios.request(announce).then((res) => {
+      dispatch(setMaterial(res.data));
+    });
+  };
 
   const getCourse = {
     method: "GET",
     url: `http://localhost:8000/course/getCourse?courseId=${courseId}`,
   };
 
+  useEffect(() => {}, [course.courseMaterial]);
+
   useEffect(() => {
     axios
       .request(getCourse)
       .then((res) => {
         dispatch(setCurrentCourse(res.data));
-        console.log(course);
+        course.courseMaterial.reverse();
+        console.log(course.courseMaterial);
       })
       .catch((e) => console.log(e));
   }, [courseId]);
@@ -82,15 +103,25 @@ export const useHomeFeedLogic = () => {
       .catch((e) => console.log(e));
   };
 
-  const openDialog = () => {
-    if (dialogRef.current) {
-      dialogRef.current.showModal();
+  const openUploadDialog = () => {
+    if (uploadDialogRef.current) {
+      uploadDialogRef.current.showModal();
+    }
+  };
+  const openAnnounceDialog = () => {
+    if (announceDialogRef.current) {
+      announceDialogRef.current.showModal();
     }
   };
 
-  const closeDialog = () => {
-    if (dialogRef.current) {
-      dialogRef.current.close();
+  const closeUploadDialog = () => {
+    if (uploadDialogRef.current) {
+      uploadDialogRef.current.close();
+    }
+  };
+  const closeAnnounceDialog = () => {
+    if (announceDialogRef.current) {
+      announceDialogRef.current.close();
     }
   };
 
@@ -110,14 +141,20 @@ export const useHomeFeedLogic = () => {
     getInputProps,
     preview,
     removeFiles,
-    openDialog,
-    closeDialog,
-    dialogRef,
+    openUploadDialog,
+    closeUploadDialog,
+    uploadDialogRef,
+    openAnnounceDialog,
+    closeAnnounceDialog,
+    announceDialogRef,
     time,
     date,
     getIcon,
     isDark,
     today,
     icon,
+    message,
+    setMessage,
+    sendAnnouncement,
   };
 };
