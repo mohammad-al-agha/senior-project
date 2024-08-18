@@ -45,6 +45,7 @@ const HomeFeed = () => {
     setFileName,
     setFilePath,
     setFileType,
+    openCalendly,
   } = useHomeFeedLogic();
 
   return (
@@ -61,7 +62,9 @@ const HomeFeed = () => {
               <h2>{course.courseInstructor.name}</h2>
               <h6>{course.courseInstructor.email}</h6>
             </div>
-            <button className="green--button">Request a Meeting</button>
+            <button onClick={openCalendly} className="green--button">
+              Request a Meeting
+            </button>
           </div>
         ) : (
           <>

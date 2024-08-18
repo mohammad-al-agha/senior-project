@@ -12,8 +12,14 @@ import { useBackgroundIcon } from "../../../../hooks/useBackgroundIcon";
 
 export const useHomeFeedLogic = () => {
   const course = useSelector((state: RootState) => state.selectedCourse.course);
-  const user = useSelector((state: RootState) => state.user.userType);
+  let user = useSelector((state: RootState) => state.user.userType);
   const isDark = useSelector((state: RootState) => state.theme.currentTheme);
+
+  if (!user) {
+    const type = localStorage.getItem("userType");
+
+    type === "instructor" ? (user = "instructor") : (user = "student");
+  }
 
   const { courseId } = useParams();
 
@@ -173,6 +179,11 @@ export const useHomeFeedLogic = () => {
     }
   };
 
+  const openCalendly = () => {
+    const url = "https://calendly.com/mohammad-alagha";
+    window.open(url, "_blank");
+  };
+
   const getIcon = useFileIcon;
   const time = useTime;
   const date = useDate;
@@ -211,5 +222,6 @@ export const useHomeFeedLogic = () => {
     setFileName,
     setFilePath,
     setFileType,
+    openCalendly,
   };
 };
