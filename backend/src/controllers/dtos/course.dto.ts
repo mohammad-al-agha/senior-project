@@ -19,3 +19,9 @@ export interface InstructorAssignDTO {
 export interface GetCourseDTO {
   courseId: string;
 }
+
+export interface DownloadFileDTO {
+  filePath: string;
+  fileName: string;
+  fileType: string;
+}
