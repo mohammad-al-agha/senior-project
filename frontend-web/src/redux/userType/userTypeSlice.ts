@@ -22,12 +22,10 @@ export const userTypeSlice = createSlice({
       state.userType = "student";
       state.userEmail = action.payload.email;
       state.userName = action.payload.name;
-      state.imgUrl = action.payload.imgUrl;
     },
     setAsInstructor: (state, action) => {
       state.userType = "instructor";
       state.userEmail = action.payload.email;
-      state.imgUrl = action.payload.imgUrl;
     },
   },
 });

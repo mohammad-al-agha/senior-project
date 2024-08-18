@@ -56,7 +56,7 @@ export const useLoginLogic = () => {
   const [visibility, setVisibility] = useState(false);
 
   const login = (data: any) => {
-    if (user == null) {
+    if (user === null) {
       setError("Please select your user type");
       return;
     }
