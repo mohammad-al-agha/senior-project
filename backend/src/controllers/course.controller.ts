@@ -2,12 +2,14 @@ import { Request, Response } from "express";
 import { Course } from "../models/course.model";
 import {
   CreateCourseDTO,
+  DownloadFileDTO,
   GetCourseDTO,
   InstructorAssignDTO,
   StudentEnrollDTO,
 } from "./dtos/course.dto";
 import { Instructor } from "../models/instructor.model";
 import { Student } from "../models/student.model";
+import fs from "fs";
 
 //add course
 
@@ -154,4 +156,24 @@ export const getCourse = async (
   }
 
   return res.json(course);
+};
+
+export const downloadFile = (
+  req: Request<{}, {}, DownloadFileDTO>,
+  res: Response
+) => {
+  const { fileName, filePath, fileType } = req.body;
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send("File not found");
+  }
+
+  const fileStream = fs.createReadStream(filePath);
+
+  const mimeType = fileType;
+
+  res.setHeader("Content-Type", mimeType);
+  res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
+
+  fileStream.pipe(res);
 };

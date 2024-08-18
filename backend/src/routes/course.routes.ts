@@ -2,6 +2,7 @@ import { Router } from "express";
 const router = Router();
 import {
   addCourse,
+  downloadFile,
   getCourse,
   instructorAssign,
   studentEnroll,
@@ -11,5 +12,6 @@ router.post("/addCourse", addCourse);
 router.post("/instructorAssign", instructorAssign);
 router.post("/studentEnroll", studentEnroll);
 router.get("/getCourse", getCourse);
+router.get("/downloadFile", downloadFile);
 
 export default router;
