@@ -1,8 +1,7 @@
 import "./HomeFeed.css";
 import { useHomeFeedLogic } from "./useHomeFeedLogic";
 import Upload from "../../../../../assets/images/Upload.svg";
-import EyeW from "../../../../../assets/images/EyeW.svg";
-import EyeB from "../../../../../assets/images/EyeB.svg";
+
 import DownloadW from "../../../../../assets/images/DownloadW.svg";
 import DownloadB from "../../../../../assets/images/DownloadB.svg";
 import CommentsW from "../../../../../assets/images/CommentsW.svg";
@@ -137,22 +136,26 @@ const HomeFeed = () => {
                     <p className="">{`${time(material.deliverTime)}`}</p>
                   </section>
                   <section className="material-card-buttons">
-                    <button
-                      onMouseEnter={() => {
-                        setFileName(material.fileName);
-                        setFilePath(material.filePath);
-                        setFileType(material.fileType);
-                      }}
-                      onClick={() => {
-                        loadFile();
-                      }}
-                      className="material-card-button"
-                    >
-                      <img
-                        src={isDark ? DownloadW : DownloadB}
-                        alt="Download"
-                      />
-                    </button>
+                    {material.fileSection === "Announcement" ? (
+                      <></>
+                    ) : (
+                      <button
+                        onMouseEnter={() => {
+                          setFileName(material.fileName);
+                          setFilePath(material.filePath);
+                          setFileType(material.fileType);
+                        }}
+                        onClick={() => {
+                          loadFile();
+                        }}
+                        className="material-card-button"
+                      >
+                        <img
+                          src={isDark ? DownloadW : DownloadB}
+                          alt="Download"
+                        />
+                      </button>
+                    )}
                     <button className="material-card-button">
                       <img
                         src={isDark ? CommentsW : CommentsB}
