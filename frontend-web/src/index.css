@@ -143,25 +143,25 @@ button {
   --button-text-color: var(--primary-black);
 }
 
-.green--button:is(:hover, :focus) {
+.green--button:hover {
   --button-shadow: var(--primary-green);
   border: none;
   transition: all 0.3s ease-in-out;
 }
 
-.black--button:is(:hover, :focus) {
+.black--button:hover {
   --button-shadow: var(--text-color);
   border: none;
   transition: all 0.3s ease-in-out;
 }
 
-.red--button:is(:hover, :focus) {
+.red--button:hover {
   --button-shadow: var(--red);
   border: none;
   transition: all 0.3s ease-in-out;
 }
 
-.white--button:is(:hover, :focus) {
+.white--button:hover {
   --button-shadow: var(--shadow);
   transition: all 0.3s ease-in-out;
 }
