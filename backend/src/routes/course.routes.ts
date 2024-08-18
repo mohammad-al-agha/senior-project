@@ -12,6 +12,6 @@ router.post("/addCourse", addCourse);
 router.post("/instructorAssign", instructorAssign);
 router.post("/studentEnroll", studentEnroll);
 router.get("/getCourse", getCourse);
-router.get("/downloadFile", downloadFile);
+router.post("/downloadFile", downloadFile);
 
 export default router;
