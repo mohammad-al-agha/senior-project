@@ -123,7 +123,7 @@ Material Card Section
   transition: 150ms ease-in-out;
 }
 
-.material-card-button:is(:hover, :focus) {
+.material-card-button:hover {
   background-color: var(--primary-green);
   transition: 150ms ease-in-out;
 }

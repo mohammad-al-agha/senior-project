@@ -22,6 +22,7 @@ export const useHomeFeedLogic = () => {
 
   const [hasFile, setHasFile] = useState(false);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>();
+
   const [dateTime, setDateTime] = useState<string>("");
   const [fileSection, setFileSection] = useState("Quiz");
 
@@ -47,6 +48,8 @@ export const useHomeFeedLogic = () => {
     });
   };
 
+  //get course
+
   const getCourse = {
     method: "GET",
     url: `http://localhost:8000/course/getCourse?courseId=${courseId}`,
@@ -58,6 +61,8 @@ export const useHomeFeedLogic = () => {
     axios
       .request(getCourse)
       .then((res) => {
+        console.log(res.data);
+
         dispatch(setCurrentCourse(res.data));
       })
       .catch((e) => console.log(e));
@@ -86,6 +91,8 @@ export const useHomeFeedLogic = () => {
     setHasFile(false);
   };
 
+  //handle upload
+
   const handleUploadMaterial = () => {
     if (typeof acceptedFiles[0] === undefined) return;
 
@@ -93,8 +100,6 @@ export const useHomeFeedLogic = () => {
 
     acceptedFiles.forEach((file) => {
       formData.append("file", file);
-      console.log(file);
-      console.log(formData);
     });
 
     const uploadMaterial = {
@@ -103,13 +108,48 @@ export const useHomeFeedLogic = () => {
       data: formData,
     };
 
-    console.log(uploadMessage);
-
     axios
       .request(uploadMaterial)
       .then((res) => dispatch(setMaterial(res.data)))
       .catch((e) => console.log(e));
   };
+
+  //load file
+  const [fileName, setFileName] = useState<string | null>();
+  const [filePath, setFilePath] = useState<string | null>();
+  const [fileType, setFileType] = useState<string | null>();
+
+  const loadFile = async () => {
+    const data = {
+      fileName: fileName,
+      filePath: filePath,
+      fileType: fileType,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/course/downloadFile",
+        data,
+        {
+          responseType: "blob",
+        }
+      );
+
+      const blob = response.data;
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = fileName!;
+      link.click();
+
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //dialog functions
 
   const openUploadDialog = () => {
     if (uploadDialogRef.current) {
@@ -167,5 +207,9 @@ export const useHomeFeedLogic = () => {
     setDateTime,
     setFileSection,
     setUploadMessage,
+    loadFile,
+    setFileName,
+    setFilePath,
+    setFileType,
   };
 };

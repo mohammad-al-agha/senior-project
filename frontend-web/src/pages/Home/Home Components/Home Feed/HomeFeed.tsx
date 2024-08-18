@@ -42,6 +42,10 @@ const HomeFeed = () => {
     setDateTime,
     setFileSection,
     setUploadMessage,
+    loadFile,
+    setFileName,
+    setFilePath,
+    setFileType,
   } = useHomeFeedLogic();
 
   return (
@@ -133,14 +137,27 @@ const HomeFeed = () => {
                     <p className="">{`${time(material.deliverTime)}`}</p>
                   </section>
                   <section className="material-card-buttons">
-                    <button className="material-card-button">
-                      <img src={isDark ? EyeW : EyeB} alt="" />
+                    <button
+                      onMouseEnter={() => {
+                        setFileName(material.fileName);
+                        setFilePath(material.filePath);
+                        setFileType(material.fileType);
+                      }}
+                      onClick={() => {
+                        loadFile();
+                      }}
+                      className="material-card-button"
+                    >
+                      <img
+                        src={isDark ? DownloadW : DownloadB}
+                        alt="Download"
+                      />
                     </button>
                     <button className="material-card-button">
-                      <img src={isDark ? DownloadW : DownloadB} alt="" />
-                    </button>
-                    <button className="material-card-button">
-                      <img src={isDark ? CommentsW : CommentsB} alt="" />
+                      <img
+                        src={isDark ? CommentsW : CommentsB}
+                        alt="Comments"
+                      />
                     </button>
                   </section>
                 </section>
