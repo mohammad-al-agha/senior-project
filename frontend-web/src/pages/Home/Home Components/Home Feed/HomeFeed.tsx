@@ -264,7 +264,7 @@ const HomeFeed = () => {
         ) : (
           <div className="empty">
             <img height={300} width={300} src={NoFiles} alt="" />
-            <h1>This Course Has No Material Yet</h1>
+            <h1>There Are No Materials Yet</h1>
           </div>
         )}
       </div>

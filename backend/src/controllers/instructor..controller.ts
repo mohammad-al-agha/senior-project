@@ -5,9 +5,10 @@ import {
   PostMaterialDTO,
   SendAnnouncementDTO,
 } from "./dtos/instructor.dto";
-import { Course } from "../models/course.model";
+import { Course, CourseMaterialDoc } from "../models/course.model";
 import { Student } from "../models/student.model";
 import { Req } from "../core/types/requestType";
+import { Types } from "mongoose";
 
 //get courses
 
@@ -89,10 +90,17 @@ export const sendAnnouncement = async (
     return res.json({ message: "Course Not Found" });
   }
 
-  const announcement = {
+  const announcement: CourseMaterialDoc = {
+    id: "",
     description: message,
     fileSection: "Announcement",
     materialComments: ([] = []),
+    fileName: null,
+    filePath: null,
+    fileType: null,
+    dueTime: null,
+    deliverTime: Date.now(),
+    studentAnswers: ([] = []),
   };
 
   course.courseMaterial.unshift(announcement);
@@ -118,7 +126,7 @@ export const uploadMaterial = async (
 
   if (Array.isArray(req.files)) {
     req.files.forEach((f) => {
-      const courseFile = createCourseFile(
+      const courseFile: CourseMaterialDoc = createCourseFile(
         f,
         fileSection,
         parsedDueTime,
@@ -139,12 +147,16 @@ const createCourseFile = (
   date: Date,
   description: string
 ) => ({
+  id: "",
   description: description || "",
   fileName: file.filename || "",
   filePath: file.path || "",
   fileType: file.mimetype || "",
   fileSection: fileSection || "Quiz",
   dueTime: date || new Date(),
+  deliverTime: Date.now(),
+  materialComments: ([] = []),
+  studentAnswers: ([] = []),
 });
 
 //view meetings calendar (calendly)? https://calendly.com/event_types/user/me

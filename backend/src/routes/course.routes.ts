@@ -5,6 +5,7 @@ import {
   downloadFile,
   getCourse,
   instructorAssign,
+  sendComments,
   studentEnroll,
 } from "../controllers/course.controller";
 
@@ -13,5 +14,6 @@ router.post("/instructorAssign", instructorAssign);
 router.post("/studentEnroll", studentEnroll);
 router.get("/getCourse", getCourse);
 router.post("/downloadFile", downloadFile);
+router.post("/sendComments", sendComments);
 
 export default router;

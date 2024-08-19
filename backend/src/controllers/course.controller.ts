@@ -5,6 +5,7 @@ import {
   DownloadFileDTO,
   GetCourseDTO,
   InstructorAssignDTO,
+  SendMessageDTO,
   StudentEnrollDTO,
 } from "./dtos/course.dto";
 import { Instructor } from "../models/instructor.model";
@@ -176,4 +177,47 @@ export const downloadFile = (
   res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
 
   fileStream.pipe(res);
+};
+
+//send comments
+export const sendComments = async (
+  req: Request<{}, {}, SendMessageDTO>,
+  res: Response
+) => {
+  const { courseId, materialId, message, userId, userType } = req.body;
+
+  if (!message) {
+    return res.json({ message: "No Message is sent" });
+  }
+
+  const course = await Course.findById(courseId);
+
+  if (!course) {
+    return res.json({ message: "Course Not Found" });
+  }
+
+  if (userType === "Student" || "student") {
+    const user = Student.findById(userId);
+  } else {
+    const user = Instructor.findById(userId);
+  }
+
+  const material = course.courseMaterial.find((m) => m.id === materialId);
+
+  console.log(material);
+
+  if (!material) {
+    return res.json({ message: "No Material Found" });
+  }
+
+  const newMessage = {
+    userId: userId,
+    message: message,
+  };
+
+  material.materialComments.push(newMessage);
+
+  await course.save();
+
+  res.json(course.courseMaterial);
 };
