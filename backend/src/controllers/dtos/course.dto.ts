@@ -25,3 +25,11 @@ export interface DownloadFileDTO {
   fileName: string;
   fileType: string;
 }
+
+export interface SendMessageDTO {
+  courseId: string;
+  materialId: string;
+  message: string;
+  userType: string;
+  userId: string;
+}
