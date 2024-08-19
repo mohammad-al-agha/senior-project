@@ -11,12 +11,16 @@ import SpeakerB from "../../../../../assets/images/SpeakerB.svg";
 import NoFiles from "../../../../../assets/images/NoFiles.svg";
 import AnnounceDialog from "../../../../components/Dialogs/Announce Dialog/AnnounceDialog";
 import UploadDialog from "../../../../components/Dialogs/Upload Dialog/UploadDialog";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterCourse, resetFilter } from "../../../../redux/course";
 
 const HomeFeed = () => {
   const {
     handleUploadMaterial,
     user,
     course,
+    filteredCourses,
     hasFile,
     getInputProps,
     getRootProps,
@@ -47,6 +51,14 @@ const HomeFeed = () => {
     setFileType,
     openCalendly,
   } = useHomeFeedLogic();
+
+  const [selectedFilter, setSelectedFilter] = useState("All");
+
+  const handleFilterClick = (filter: string) => {
+    setSelectedFilter(filter);
+  };
+
+  const dispatch = useDispatch();
 
   return (
     <div className="home-feed">
@@ -110,8 +122,87 @@ const HomeFeed = () => {
         )}
       </div>
       <div className="home-feed-material">
-        {course.courseMaterial.length > 0 ? (
-          course.courseMaterial.map((material) => {
+        <div className="filters">
+          <div
+            onClick={() => {
+              dispatch(resetFilter());
+              handleFilterClick("All");
+            }}
+            className={`filter-button ${
+              selectedFilter == "All" ? "filter-selected" : ""
+            }`}
+          >
+            All
+          </div>
+          <div
+            onClick={() => {
+              dispatch(filterCourse("Assignment"));
+              handleFilterClick("Assignment");
+            }}
+            className={`filter-button ${
+              selectedFilter == "Assignment" ? "filter-selected" : ""
+            }`}
+          >
+            Assignments
+          </div>
+          <div
+            onClick={() => {
+              dispatch(filterCourse("Announcement"));
+              handleFilterClick("Announcement");
+            }}
+            className={`filter-button ${
+              selectedFilter == "Announcement" ? "filter-selected" : ""
+            }`}
+          >
+            Announcements
+          </div>
+          <div
+            onClick={() => {
+              dispatch(filterCourse("Quiz"));
+              handleFilterClick("Quiz");
+            }}
+            className={`filter-button ${
+              selectedFilter == "Quiz" ? "filter-selected" : ""
+            }`}
+          >
+            Quizzes
+          </div>
+          <div
+            onClick={() => {
+              dispatch(filterCourse("Exam"));
+              handleFilterClick("Exam");
+            }}
+            className={`filter-button ${
+              selectedFilter == "Exam" ? "filter-selected" : ""
+            }`}
+          >
+            Exams
+          </div>
+          <div
+            onClick={() => {
+              dispatch(filterCourse("Extra"));
+              handleFilterClick("Extra");
+            }}
+            className={`filter-button ${
+              selectedFilter == "Extra" ? "filter-selected" : ""
+            }`}
+          >
+            Extra Examples
+          </div>
+          <div
+            onClick={() => {
+              dispatch(filterCourse(""));
+              handleFilterClick("Corrected");
+            }}
+            className={`filter-button ${
+              selectedFilter == "Corrected" ? "filter-selected" : ""
+            }`}
+          >
+            Corrected Samples
+          </div>
+        </div>
+        {filteredCourses.length > 0 ? (
+          filteredCourses.map((material) => {
             return (
               <div key={material._id} className="material-card">
                 <div className="material-info-section">

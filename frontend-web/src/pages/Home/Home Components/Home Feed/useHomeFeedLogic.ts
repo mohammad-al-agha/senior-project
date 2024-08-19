@@ -14,6 +14,9 @@ export const useHomeFeedLogic = () => {
   const course = useSelector((state: RootState) => state.selectedCourse.course);
   let user = useSelector((state: RootState) => state.user.userType);
   const isDark = useSelector((state: RootState) => state.theme.currentTheme);
+  const filteredCourses = useSelector(
+    (state: RootState) => state.selectedCourse.filteredMaterial
+  );
 
   if (!user) {
     const type = localStorage.getItem("userType");
@@ -67,9 +70,8 @@ export const useHomeFeedLogic = () => {
     axios
       .request(getCourse)
       .then((res) => {
-        console.log(res.data);
-
         dispatch(setCurrentCourse(res.data));
+        dispatch(setMaterial(res.data.courseMaterial));
       })
       .catch((e) => console.log(e));
   }, [courseId]);
@@ -194,6 +196,7 @@ export const useHomeFeedLogic = () => {
     handleUploadMaterial,
     user,
     course,
+    filteredCourses,
     hasFile,
     isDragActive,
     getRootProps,

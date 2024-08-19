@@ -57,6 +57,44 @@
   overflow-y: scroll;
 }
 
+.filters {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.filter-button {
+  width: fit-content;
+  font-size: 15px;
+  position: relative;
+  transition: all 350ms ease-in-out;
+  cursor: pointer;
+}
+
+.filter-button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 50%;
+  bottom: 0;
+  transition: all 350ms ease-in-out;
+  transform: translateX(-50%);
+  background-color: var(--primary-green);
+}
+
+.filter-selected {
+  color: var(--primary-green);
+}
+
+.filter-button:is(:hover, :focus)::after {
+  width: 100%;
+}
+
+.filter-button:is(:hover, :focus) {
+  color: var(--primary-green);
+}
+
 /* 
 Material Card Section
  */
