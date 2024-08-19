@@ -1,6 +1,7 @@
 import { CourseSlice } from "./courseSlice";
 
-export const { setCurrentCourse, setMaterial } = CourseSlice.actions;
+export const { setCurrentCourse, setMaterial, filterCourse, resetFilter } =
+  CourseSlice.actions;
 
 export const SelectedCourseSliceName = CourseSlice.name;
 
