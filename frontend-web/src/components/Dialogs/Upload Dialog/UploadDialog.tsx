@@ -56,6 +56,8 @@ const UploadDialog = ({
               <option value={"Quiz"}>Quiz</option>
               <option value={"Assignment"}>Assignment</option>
               <option value={"Exam"}>Exam</option>
+              <option value={"Exam"}>Extra Examples</option>
+              <option value={"Exam"}>Corrected Samples</option>
             </select>
           </div>
           <div className="dialog-section">
@@ -99,6 +101,7 @@ const UploadDialog = ({
                 hasFile
                   ? () => {
                       handleUploadMaterial();
+                      setUploadMessage("");
                       closeUploadDialog();
                     }
                   : () => {}
